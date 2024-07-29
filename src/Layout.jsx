@@ -7,7 +7,7 @@ export default function Layout() {
       <div>
         <Navigation />
       </div>
-      <div>
+      <div className="mt-[108px]">
         <Outlet />
       </div>
     </div>
