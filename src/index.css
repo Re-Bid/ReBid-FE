@@ -6,8 +6,7 @@
 
 @font-face {
   font-family: "gmarket";
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-    format("woff");
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -26,6 +25,7 @@ body {
   min-height: 100vh;
   color: black;
 }
+
 @layer components {
   .nav {
     @apply px-2 py-1 rounded-md hover:bg-neutral-300 cursor-pointer;
@@ -33,5 +33,9 @@ body {
 
   .btn {
     @apply w-full hover:bg-opacity-80 border-none;
+  }
+
+  .inputText {
+    @apply input w-full border-borderColor
   }
 }
