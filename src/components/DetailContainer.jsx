@@ -3,12 +3,39 @@ import { HeartIcon as SolidHeartIcon } from "@heroicons/react/24/solid";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import { Fragment, useState } from "react";
 import Button from "./Button";
+import ItemDetailModal from "./ItemDetailModal";
+
+const warningText = [
+    "낙찰 후 취소하고자 하는 경우, 낙찰자는 낙찰철회비로 낙찰가의 30%에 해당하는 금액을 납부하여야 하므로 신중하게 응찰하시기 바랍니다.",
+    "응찰 시 유의사항 경매에 참여하기 전에 상품의 상세 정보를 반드시 확인하시기 바랍니다. 제품 상태, 설명, 사진 등을 꼼꼼히 검토해 주세요.",
+    "낙찰 후 24시간 이내에 결제를 완료해 주셔야 합니다. 기한 내에 결제가 이루어지지 않을 경우 낙찰이 자동으로 취소될 수 있습니다.",
+    "부정한 방법으로 경매에 참여할 경우, 해당 계정은 영구적으로 이용이 제한될 수 있습니다. 정직한 참여를 부탁드립니다."
+]
 
 
 const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bidType }) => {
 
     const [loading, setLoading] = useState(false)
     const [heartClick, setHeartClick] = useState(false)
+    const [agreeClick, setAgreeClick] = useState(false)
+
+    const notAgreeChild =
+        <div>
+            <div className="py-4 border-b border-borderColor">
+                {warningText.map((text, i) =>
+                    <div key={i} className="pb-5 text-sm">∙ {text}</div>
+                )}
+            </div>
+            <div className="text-center py-7 text-lg font-bold">온라인 경매 및 위 응찰 유의사항을 확인하였으며,<br /> 동의하므로 응찰합니다</div>
+            <div onClick={() => {
+                setAgreeClick(prev => !prev)
+                console.log(agreeClick)
+            }}>
+                <Button text="동의 및 응찰" />
+            </div>
+
+        </div>
+
 
     function getTimeRemaining(targetDateString) {
         const targetDate = new Date(targetDateString);
@@ -23,9 +50,9 @@ const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bi
         return `${daysRemaining}일 ${hoursRemaining}시간 ${minutesRemaining}분`;
     }
 
-    function formatDateTime(inputString) {
+    function formatDateTime(targetDateString) {
         // 입력된 날짜와 시간을 파싱
-        const date = new Date(inputString);
+        const date = new Date(targetDateString);
 
         // 월, 일, 시간, 분 추출
         const month = ('0' + (date.getMonth() + 1)).slice(-2); // 월은 0부터 시작하므로 1을 더함
@@ -84,14 +111,19 @@ const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bi
                 }
 
             </div>
-            <div className="flex flex-col space-y-4 py-4">
+            <div className="space-y-4 py-4 ">
                 <div className="bg-bgColor p-3 rounded-md text-center">
                     {bidType === "기간 경매" ? "마감시간 :" : "경매시간 : "}
 
                     <span className="text-warningColor">
                         {formatDateTime(time)}</span>
                 </div>
-                <Button text="응찰하기" />
+                <div className="w-full" onClick={() => document.getElementById('my_modal_3').showModal()}>
+                    <Button text="응찰하기" />
+                </div>
+
+                <ItemDetailModal title={agreeClick ? "응찰 내역" : "온라인 입찰 주의사항"} child={agreeClick ? null : notAgreeChild} />
+
             </div>
         </div>
     );
