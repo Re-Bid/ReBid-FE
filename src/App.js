@@ -12,6 +12,7 @@ import Login from "./page/auth/login";
 import Term from "./page/auth/term";
 import LikeLists from "./page/LikeLists";
 import AdminDetail from "./page/admin/AdminDetail";
+import Test from "./test";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
   { path: "/admin/list/:id", element: <AdminDetail /> },
   { path: "/login", element: <Login /> },
   { path: "/login/term", element: <Term /> },
+  { path: "/test", element: <Test /> },
 ]);
 function App() {
   return (
