@@ -3,7 +3,7 @@ import Navigation from "./components/navigation";
 
 export default function Layout() {
   return (
-    <div className="px-10">
+    <div className="min-w-[1024px]">
       <div>
         <Navigation />
       </div>

@@ -2,8 +2,8 @@ import logo from "../asset/logo.png";
 
 export default function Navigation() {
   return (
-    <div className="flex flex-col">
-      <div className="flex gap-10 w-[50%] self-end justify-end pt-3 text-sm *:nav">
+    <div className="w-full">
+      <div className="flex gap-6 self-end justify-end pt-3 text-sm *:nav">
         <div>회원가입</div>
         <div>로그인</div>
         <div>찜한 상품</div>
