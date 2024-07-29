@@ -8,6 +8,9 @@ import Mypage from "./page/Mypage";
 import Auth from "./page/admin/Auth";
 import AdminPage from "./page/admin/AdminPage";
 import ItemList from "./page/ItemList";
+import Login from "./page/auth/login";
+import Term from "./page/auth/term";
+import LikeLists from "./page/LikeLists";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +32,8 @@ const router = createBrowserRouter([
       { path: "/detail/:id", element: <ItemDetail /> },
       { path: "/mypage", element: <Mypage /> },
       { path: "/itemlists/:category", element: <ItemList /> },
+
+      { path: "/likelists", element: <LikeLists /> },
     ],
   },
   {
@@ -36,6 +41,8 @@ const router = createBrowserRouter([
     element: <Auth />,
   },
   { path: "admin/page", element: <AdminPage /> },
+  { path: "/login", element: <Login /> },
+  { path: "/login/term", element: <Term /> },
 ]);
 function App() {
   return (
