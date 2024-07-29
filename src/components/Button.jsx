@@ -1,9 +1,8 @@
 export default function Button({ text, isGray }) {
   return (
     <div
-      className={`btn  ${
-        isGray ? "bg-neutral-400 text-warningColor" : "bg-black text-white"
-      }`}
+      className={`btn border-none  ${isGray ? "bg-bgColor text-warningColor" : "bg-black text-white"
+        }`}
     >
       {text}
     </div>
