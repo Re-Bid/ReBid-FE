@@ -12,7 +12,7 @@ export default function Navigation() {
     } else if (window.location.href.includes("keyring")) {
       setNavState("keyring");
     } else if (window.location.href.includes("pouch")) {
-      setNavState("poush");
+      setNavState("pouch");
     } else if (window.location.href.includes("wallet")) {
       setNavState("wallet");
     } else if (window.location.href.includes("else")) {
