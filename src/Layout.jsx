@@ -4,11 +4,13 @@ import logo from "./asset/logo.png";
 
 export default function Layout() {
   return (
+
     <div className="flex flex-col justify-between min-h-screen max-w-[1024px]">
       <div className="fixed z-50">
+
         <Navigation />
       </div>
-      <div className="mt-[108px] z-10 min-w-[1024px] ">
+      <div className=" max-w-[1024px] ">
         <Outlet />
       </div>
 
