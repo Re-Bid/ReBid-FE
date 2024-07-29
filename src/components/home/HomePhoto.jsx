@@ -9,11 +9,11 @@ export default function HomePhoto() {
   };
   return (
     <div>
-      <div className="w-[200px] h-[150px]">
+      <div className="w-[200px] h-[150px] ">
         {isCursor ? (
           <div
             onMouseLeave={onMouseEvent}
-            className="bg-black w-[200px] h-[150px] absolute bg-opacity-50 flex flex-col px-2 py-2 justify-between"
+            className="animate-onMouseEnter bg-black w-[200px] h-[150px] absolute bg-opacity-50 flex flex-col px-2 py-2 justify-between"
           >
             <HeartIcon className="size-4 text-white self-end" />
             <div className="text-white self-start flex flex-col items-start">

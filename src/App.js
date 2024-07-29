@@ -13,6 +13,7 @@ import Term from "./page/auth/term";
 import LikeLists from "./page/LikeLists";
 import AdminDetail from "./page/admin/AdminDetail";
 import AdminLayout from "./AdminLayout";
+import Test from "./test";
 
 const router = createBrowserRouter([
   {
@@ -34,12 +35,12 @@ const router = createBrowserRouter([
       { path: "/detail/:id", element: <ItemDetail /> },
       { path: "/mypage", element: <Mypage /> },
       { path: "/itemlists/:category", element: <ItemList /> },
-
       { path: "/likelists", element: <LikeLists /> },
       { path: "/login", element: <Login /> },
       { path: "/login/term", element: <Term /> },
     ],
   },
+  { path: "/test", element: <Test /> },
   {
     path: "/admin",
 
@@ -51,10 +52,8 @@ const router = createBrowserRouter([
       },
       { path: "list", element: <AdminList /> },
       { path: "list/:id", element: <AdminDetail /> },
-    ]
-  }
-
-
+    ],
+  },
 ]);
 function App() {
   return (

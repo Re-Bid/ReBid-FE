@@ -3,15 +3,14 @@ import { SwiperSlide, Swiper } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "../style/swiper.css";
-import { Navigation, Pagination } from "swiper/modules";
-import { HeartIcon } from "@heroicons/react/24/outline";
+import { Navigation } from "swiper/modules";
 
 import "swiper/css/pagination";
 
 export default function Home() {
   const auctionArray = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   return (
-    <div className="">
+    <div className="flex flex-col items-center">
       <div className="h-[350px] grid grid-cols-2">
         <div className="h-full text-white bg-[#88939A] px-14 py-10 flex flex-col justify-around font-light">
           <div className="font-bold text-xl">
@@ -31,14 +30,15 @@ export default function Home() {
 
       <div className="flex flex-col gap-5 py-5">
         <div className="text-2xl px-2">지금 진행중인 경매</div>
-        <div className="w-[1024px]">
+        <div className="w-[850px] overflow-visible">
           <Swiper
-            spaceBetween={30}
+            spaceBetween={0}
             slidesPerView={4}
             navigation={true}
             modules={[Navigation]}
             onSlideChange={() => console.log("slide change")}
             onSwiper={(swiper) => console.log(swiper)}
+            className="overflow-visible"
           >
             {auctionArray.map((e, el) => {
               return (
@@ -53,14 +53,15 @@ export default function Home() {
 
       <div className="flex flex-col gap-5 py-5">
         <div className="text-2xl px-2">오늘 끝나는 경매</div>
-        <div className="w-[1024px]">
+        <div className="w-[850px] overflow-visible">
           <Swiper
-            spaceBetween={30}
+            spaceBetween={0}
             slidesPerView={4}
             navigation={true}
             modules={[Navigation]}
             onSlideChange={() => console.log("slide change")}
             onSwiper={(swiper) => console.log(swiper)}
+            className="overflow-visible"
           >
             {auctionArray.map((e, el) => {
               return (
@@ -75,14 +76,15 @@ export default function Home() {
 
       <div className="flex flex-col gap-5 py-5">
         <div className="text-2xl px-2">모든 경매</div>
-        <div className="w-[1024px]">
+        <div className="w-[850px] overflow-visible">
           <Swiper
-            spaceBetween={30}
+            spaceBetween={0}
             slidesPerView={4}
             navigation={true}
             modules={[Navigation]}
             onSlideChange={() => console.log("slide change")}
             onSwiper={(swiper) => console.log(swiper)}
+            className="overflow-visible"
           >
             {auctionArray.map((e, el) => {
               return (
