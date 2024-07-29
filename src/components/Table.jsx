@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Table = ({ rows, list }) => {
+    const navigate = useNavigate()
     return (
         <div className="overflow-x-auto ">
             <table className="table">
@@ -11,7 +13,9 @@ const Table = ({ rows, list }) => {
                 </tr>
                 <tbody className=''>
                     {list.map((item, index) => (
-                        <tr key={index} className={`${index === list.length - 1 ? "" : "border-b border-borderColor"} `}>
+                        <tr key={index} className={`${index === list.length - 1 ? "" : "border-b border-borderColor"} `}
+                            onClick={() => navigate(`/admin/list/${index}`)}
+                        >
                             <th className="">
                                 <img src={item.imgUrl} className="bg-bgColor w-24 h-24 rounded-lg" /></th>
                             <th>{item.productName}</th>

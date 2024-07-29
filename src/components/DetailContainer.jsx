@@ -13,7 +13,7 @@ const warningText = [
 ]
 
 
-const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bidType }) => {
+const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bidType, isAdmin }) => {
 
     const [loading, setLoading] = useState(false)
     const [heartClick, setHeartClick] = useState(false)
@@ -93,7 +93,11 @@ const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bi
             <div className="py-4 grid grid-cols-2 gap-4 border-b border-borderColor">
                 <div> 시작가</div>
                 <div>{startPrice}</div>
-                {bidType === "기간 경매" ?
+
+                {isAdmin ? <Fragment>
+                    <div>경매 유형</div>
+                    <div>{bidType}</div>
+                </Fragment> : bidType === "기간 경매" ?
                     <Fragment>
                         <div>현재 최고 응찰가</div>
                         <div className="text-warningColor flex items-center space-x-2">
@@ -105,24 +109,32 @@ const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bi
                                 }, 1000);
                             }} />
                         </div>
-                    </Fragment>
-                    :
-                    <div className="h-20" />
-                }
+                    </Fragment> : null}
 
             </div>
             <div className="space-y-4 py-4 ">
-                <div className="bg-bgColor p-3 rounded-md text-center">
-                    {bidType === "기간 경매" ? "마감시간 :" : "경매시간 : "}
+                {isAdmin ?
+                    <Fragment>
+                        <Button text="반려하기" isGray />
+                        <Button text="승인하기" />
+                    </Fragment>
+                    :
+                    <Fragment>
+                        <div className="bg-bgColor p-3 rounded-md text-center">
+                            {bidType === "기간 경매" ? "마감시간 :" : "경매시간 : "}
 
-                    <span className="text-warningColor">
-                        {formatDateTime(time)}</span>
-                </div>
-                <div className="w-full" onClick={() => document.getElementById('my_modal_3').showModal()}>
-                    <Button text="응찰하기" />
-                </div>
+                            <span className="text-warningColor">
+                                {formatDateTime(time)}</span>
+                        </div>
+                        <div className="w-full" onClick={() => document.getElementById('my_modal_3').showModal()}>
+                            <Button text="응찰하기" />
+                        </div>
 
-                <ItemDetailModal title={agreeClick ? "응찰 내역" : "온라인 입찰 주의사항"} child={agreeClick ? null : notAgreeChild} />
+                        <ItemDetailModal title={agreeClick ? "응찰 내역" : "온라인 입찰 주의사항"} child={agreeClick ? null : notAgreeChild} />
+
+                    </Fragment>
+
+                }
 
             </div>
         </div>
