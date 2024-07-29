@@ -11,7 +11,7 @@ export default function Home() {
   const auctionArray = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   return (
     <div className="flex flex-col items-center">
-      <div className="h-[350px] grid grid-cols-2">
+      <div className="h-[350px] w-full grid grid-cols-2">
         <div className="h-full text-white bg-[#88939A] px-14 py-10 flex flex-col justify-around font-light">
           <div className="font-bold text-xl">
             7/23(화) 오후 6시부터 응찰 오픈
