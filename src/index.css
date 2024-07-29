@@ -31,10 +31,6 @@ body {
     @apply px-2 py-1 rounded-md hover:bg-neutral-300 cursor-pointer;
   }
 
-  .btn {
-    @apply w-full hover:bg-opacity-80 border-none;
-  }
-
   .inputText {
     @apply input w-full border-borderColor
   }
