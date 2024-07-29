@@ -22,9 +22,16 @@ body {
   font-family: "Noto Sans KR", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  background-color: white;
+  height: 100vh;
+  color: black;
 }
 @layer components {
   .nav {
     @apply px-2 py-1 rounded-md hover:bg-neutral-300 cursor-pointer;
+  }
+
+  .btn {
+    @apply w-full hover:bg-opacity-80 border-none;
   }
 }

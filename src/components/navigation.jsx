@@ -23,7 +23,7 @@ export default function Navigation() {
   }, [window.location.href]);
 
   return (
-    <div className="font-notoSans fixed min-w-[1024px] bg-white">
+    <div className="font-notoSans min-w-[1024px] bg-white">
       <div className="flex gap-6 self-end justify-end pt-3 text-sm *:nav">
         <div onClick={() => navigate("/login")}>회원가입</div>
         <div onClick={() => navigate("/login")}>로그인</div>

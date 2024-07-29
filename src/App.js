@@ -6,11 +6,12 @@ import Sell from "./page/Sell";
 import ItemDetail from "./page/ItemDetail";
 import Mypage from "./page/Mypage";
 import Auth from "./page/admin/Auth";
-import AdminPage from "./page/admin/AdminPage";
+import AdminList from "./page/admin/AdminList";
 import ItemList from "./page/ItemList";
 import Login from "./page/auth/login";
 import Term from "./page/auth/term";
 import LikeLists from "./page/LikeLists";
+import AdminDetail from "./page/admin/AdminDetail";
 
 const router = createBrowserRouter([
   {
@@ -37,10 +38,11 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/admin/auth",
+    path: "/admin",
     element: <Auth />,
   },
-  { path: "admin/page", element: <AdminPage /> },
+  { path: "/admin/list", element: <AdminList /> },
+  { path: "/admin/list/:id", element: <AdminDetail /> },
   { path: "/login", element: <Login /> },
   { path: "/login/term", element: <Term /> },
 ]);

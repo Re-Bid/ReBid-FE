@@ -4,7 +4,7 @@ import Navigation from "./components/navigation";
 export default function Layout() {
   return (
     <div className="min-w-[1024px]">
-      <div>
+      <div className="fixed">
         <Navigation />
       </div>
       <div className="mt-[108px]">
