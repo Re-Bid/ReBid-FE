@@ -12,7 +12,7 @@ export default function LikeLists() {
       <div className="grid grid-cols-4">
         {arr.map((e, i) => {
           return (
-            <div className="mb-10 mx-2">
+            <div className="mb-10 mx-2" key={i}>
               <ListCard />
             </div>
           );
