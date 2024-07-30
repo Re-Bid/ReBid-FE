@@ -9,7 +9,7 @@ export default function Layout() {
       <div>
         <Navigation />
       </div>
-      <div className=" max-w-[1024px] ">
+      <div className=" max-w-[1024px] flex-1">
         <Outlet />
       </div>
 
