@@ -14,6 +14,7 @@ import LikeLists from "./page/LikeLists";
 import AdminDetail from "./page/admin/AdminDetail";
 import AdminLayout from "./AdminLayout";
 import Test from "./test";
+import ItemDetailSell from "./page/ItemDetailSell";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
         element: <Sell />,
       },
       { path: "/detail/:id", element: <ItemDetail /> },
+      { path: "/detail/:id/sell", element: <ItemDetailSell /> },
       { path: "/mypage", element: <Mypage /> },
       { path: "/itemlists/:category", element: <ItemList /> },
       { path: "/likelists", element: <LikeLists /> },

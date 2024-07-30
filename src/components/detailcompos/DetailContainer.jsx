@@ -31,7 +31,7 @@ export function formatDateTime(targetDateString) {
 }
 
 
-const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bidType, isAdmin }) => {
+const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bidType, isAdmin, isSell }) => {
 
     const [loading, setLoading] = useState(false)
     const [heartClick, setHeartClick] = useState(false)
@@ -103,24 +103,31 @@ const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bi
             <div className="py-4 grid grid-cols-2 gap-4 border-b border-borderColor">
                 <div> 시작가</div>
                 <div>{startPrice}</div>
+                {isSell ?
+                    <Fragment>
+                        <div>낙찰가</div>
+                        <div className="text-warningColor">30,000원</div>
+                    </Fragment>
+                    :
+                    isAdmin ? <Fragment>
+                        <div>경매 유형</div>
+                        <div>{bidType}</div>
+                    </Fragment> :
 
-                {isAdmin ? <Fragment>
-                    <div>경매 유형</div>
-                    <div>{bidType}</div>
-                </Fragment> :
-                    bidType === "기간 경매" ?
-                        <Fragment>
-                            <div>현재 최고 응찰가</div>
-                            <div className="text-warningColor flex items-center space-x-2">
-                                <div>{nowHighPrice}</div>
-                                <ArrowPathIcon className={`size-6 cursor-pointer ${loading ? "animate-spin" : ""}`} onClick={() => {
-                                    setLoading(true)
-                                    setTimeout(() => {
-                                        setLoading(false);
-                                    }, 1000);
-                                }} />
-                            </div>
-                        </Fragment> : null}
+                        bidType === "기간 경매" ?
+                            <Fragment>
+                                <div>현재 최고 응찰가</div>
+                                <div className="text-warningColor flex items-center space-x-2">
+                                    <div>{nowHighPrice}</div>
+                                    <ArrowPathIcon className={`size-6 cursor-pointer ${loading ? "animate-spin" : ""}`} onClick={() => {
+                                        setLoading(true)
+                                        setTimeout(() => {
+                                            setLoading(false);
+                                        }, 1000);
+                                    }} />
+                                </div>
+                            </Fragment> : null
+                }
 
             </div>
             <div className="space-y-4 py-4 ">
@@ -140,13 +147,17 @@ const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bi
                     :
                     <Fragment>
                         <div className="bg-bgColor p-3 rounded-md text-center">
-                            {bidType === "기간 경매" ? "마감시간 :" : "경매시간 : "}
+                            {isSell ? "🎊축하합니다! 낙찰되셨습니다!🎊" : <Fragment>
 
-                            <span className="text-warningColor">
-                                {formatDateTime(time)}</span>
+                                {bidType === "기간 경매" ? "마감시간 :" : "경매시간 : "}
+
+                                <span className="text-warningColor">
+                                    {formatDateTime(time)}</span>
+                            </Fragment>}
+
                         </div>
-                        <div className="w-full" onClick={() => document.getElementById('my_modal_3').showModal()}>
-                            <Button text="응찰하기" />
+                        <div className="w-full btn bg-green-400 hover:bg-green-400">
+                            네이버로 결제하기
                         </div>
 
                         <DetailModal title={agreeClick ? "응찰 내역" : "온라인 입찰 주의사항"} child={agreeClick ? notAgreeChild : < DetailBidConfirm startPrice={15000} setAgreeClickFunc={setAgreeClick} />} id={'my_modal_3'} />
