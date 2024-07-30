@@ -6,7 +6,7 @@ const AdminLayout = () => {
     const { pathname } = useLocation()
 
     return (
-        <div className="min-w-[1024px]">
+        <div className=" min-h-screen min-w-[1024px]">
             {pathname === "/admin" ? null :
                 <div className=" flex items-center justify-center  py-7 ">
                     <img src={Logo} className="w-16 bg-cover" />
@@ -17,7 +17,9 @@ const AdminLayout = () => {
 
                 </div>}
 
-            <Outlet />
+            <div className=" max-w-[1024px] ">
+                <Outlet />
+            </div>
         </div>
     );
 };

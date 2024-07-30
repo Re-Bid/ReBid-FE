@@ -2,8 +2,10 @@ import { HeartIcon as OutlineHeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as SolidHeartIcon } from "@heroicons/react/24/solid";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import { Fragment, useState } from "react";
-import Button from "./Button";
-import ItemDetailModal from "./ItemDetailModal";
+import Button from "../Button";
+import DetailModal from "./DetailModal";
+import DetailAdminDeny from "./admin/DetailAdminDeny";
+import DetailAdminModal from "./admin/DetailAdminModal";
 
 const warningText = [
     "낙찰 후 취소하고자 하는 경우, 낙찰자는 낙찰철회비로 낙찰가의 30%에 해당하는 금액을 납부하여야 하므로 신중하게 응찰하시기 바랍니다.",
@@ -97,26 +99,35 @@ const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bi
                 {isAdmin ? <Fragment>
                     <div>경매 유형</div>
                     <div>{bidType}</div>
-                </Fragment> : bidType === "기간 경매" ?
-                    <Fragment>
-                        <div>현재 최고 응찰가</div>
-                        <div className="text-warningColor flex items-center space-x-2">
-                            <div>{nowHighPrice}</div>
-                            <ArrowPathIcon className={`size-6 cursor-pointer ${loading ? "animate-spin" : ""}`} onClick={() => {
-                                setLoading(true)
-                                setTimeout(() => {
-                                    setLoading(false);
-                                }, 1000);
-                            }} />
-                        </div>
-                    </Fragment> : null}
+                </Fragment> :
+                    bidType === "기간 경매" ?
+                        <Fragment>
+                            <div>현재 최고 응찰가</div>
+                            <div className="text-warningColor flex items-center space-x-2">
+                                <div>{nowHighPrice}</div>
+                                <ArrowPathIcon className={`size-6 cursor-pointer ${loading ? "animate-spin" : ""}`} onClick={() => {
+                                    setLoading(true)
+                                    setTimeout(() => {
+                                        setLoading(false);
+                                    }, 1000);
+                                }} />
+                            </div>
+                        </Fragment> : null}
 
             </div>
             <div className="space-y-4 py-4 ">
                 {isAdmin ?
                     <Fragment>
-                        <Button text="반려하기" isGray />
-                        <Button text="승인하기" />
+                        <div className="w-full" onClick={() => document.getElementById('deny').showModal()}>
+                            <Button text="반려하기" isGray />
+                            <DetailAdminModal id={"deny"} title="반려하기" />
+                        </div>
+                        <div className="w-full" onClick={() => document.getElementById('approve').showModal()}>
+                            <Button text="승인하기" />
+                            <DetailAdminModal id={'approve'} bidType={bidType} />
+                        </div>
+
+
                     </Fragment>
                     :
                     <Fragment>
@@ -130,7 +141,7 @@ const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bi
                             <Button text="응찰하기" />
                         </div>
 
-                        <ItemDetailModal title={agreeClick ? "응찰 내역" : "온라인 입찰 주의사항"} child={agreeClick ? null : notAgreeChild} />
+                        <DetailModal title={agreeClick ? "응찰 내역" : "온라인 입찰 주의사항"} child={agreeClick ? null : notAgreeChild} id={'my_modal_3'} />
 
                     </Fragment>
 

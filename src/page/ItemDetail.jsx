@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import DetailContainer from "../components/DetailContainer";
+import DetailContainer from "../components/detailcompos/DetailContainer";
 
 export default function ItemDetail() {
   const { id } = useParams()
