@@ -1,26 +1,21 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import logo from "../asset/logo.png";
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { nowNav } from "../atom";
 
 export default function Navigation() {
-  const [navState, setNavState] = useState("");
+  const [navState, setNavState] = useRecoilState(nowNav);
+  const { category } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (window.location.href.includes("bag")) {
-      setNavState("bag");
-    } else if (window.location.href.includes("keyring")) {
-      setNavState("keyring");
-    } else if (window.location.href.includes("pouch")) {
-      setNavState("pouch");
-    } else if (window.location.href.includes("wallet")) {
-      setNavState("wallet");
-    } else if (window.location.href.includes("else")) {
-      setNavState("else");
-    } else {
+    if (!category) {
       setNavState("");
+    } else {
+      setNavState(category);
     }
-  }, [window.location.href]);
+  }, [category]);
 
   return (
     <div className="font-notoSans bg-white">

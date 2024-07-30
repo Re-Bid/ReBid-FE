@@ -36,13 +36,11 @@ export default function Home() {
             slidesPerView={4}
             navigation={true}
             modules={[Navigation]}
-            onSlideChange={() => console.log("slide change")}
-            onSwiper={(swiper) => console.log(swiper)}
             className="overflow-visible"
           >
             {auctionArray.map((e, el) => {
               return (
-                <SwiperSlide>
+                <SwiperSlide key={el}>
                   <HomePhoto />
                 </SwiperSlide>
               );
@@ -59,13 +57,11 @@ export default function Home() {
             slidesPerView={4}
             navigation={true}
             modules={[Navigation]}
-            onSlideChange={() => console.log("slide change")}
-            onSwiper={(swiper) => console.log(swiper)}
             className="overflow-visible"
           >
             {auctionArray.map((e, el) => {
               return (
-                <SwiperSlide>
+                <SwiperSlide key={el}>
                   <HomePhoto />
                 </SwiperSlide>
               );
@@ -82,13 +78,11 @@ export default function Home() {
             slidesPerView={4}
             navigation={true}
             modules={[Navigation]}
-            onSlideChange={() => console.log("slide change")}
-            onSwiper={(swiper) => console.log(swiper)}
             className="overflow-visible"
           >
             {auctionArray.map((e, el) => {
               return (
-                <SwiperSlide>
+                <SwiperSlide key={el}>
                   <HomePhoto />
                 </SwiperSlide>
               );
