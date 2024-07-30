@@ -1,6 +1,11 @@
 import { atom } from "recoil";
 
 export const loginState = atom({
-    key: "loginState",
-    default: false
-})
+  key: "loginState",
+  default: false,
+});
+
+export const nowNav = atom({
+  key: "navState",
+  default: "",
+});

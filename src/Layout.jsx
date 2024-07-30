@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Navigation from "./components/navigation";
 import logo from "./asset/logo.png";
+import { useEffect } from "react";
 
 export default function Layout() {
   return (

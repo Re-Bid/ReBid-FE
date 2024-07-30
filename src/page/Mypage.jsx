@@ -63,22 +63,27 @@ const list2 = [
   },
 ];
 
-const message = `안녕하세요,
-고객님의 리싸이클링 목재 테이블에 대한 경매 승인 요청을 검토한 결과, 다음과 같은 이유로 승인을 반려하게 되었음을 안내드립니다.
-현재 설정된 시작 가격이 시장 가치에 비해 지나치게 높게 책정되어 있습니다. 이는 구매자들의 경매 참여를 저해하고, 판매 성사 가능성을 낮출 수 있습니다. 당사의 플랫폼은 공정하고 합리적인 가격 형성을 통해 판매자와 구매자 모두에게 만족스러운 거래 경험을 제공하는 것을 목표로 하고 있습니다.
-
-따라서 가격 조정 후 다시 요청해주시면, 보다 원활한 경매 진행이 가능할 것으로 판단됩니다. 가격 설정에 대한 추가적인 도움이 필요하시다면, 언제든지 고객 지원 팀에 문의해주시기 바랍니다.
-감사합니다.
-`;
+const message = (
+  <div className="bg-bgColor py-2 px-3">
+    안녕하세요,
+    <br /> 고객님의 리싸이클링 목재 테이블에 대한 경매 승인 요청을 검토한 결과,
+    다음과 같은 이유로 승인을 반려하게 되었음을 안내드립니다. <br /> <br /> 현재
+    설정된 시작 가격이 시장 가치에 비해 지나치게 높게 책정되어 있습니다. 이는
+    구매자들의 경매 참여를 저해하고, 판매 성사 가능성을 낮출 수 있습니다. <br />
+    <br /> 당사의 플랫폼은 공정하고 합리적인 가격 형성을 통해 판매자와 구매자
+    모두에게 만족스러운 거래 경험을 제공하는 것을 목표로 하고 있습니다. 따라서
+    가격 조정 후 다시 요청해주시면, 보다 원활한 경매 진행이 가능할 것으로
+    판단됩니다. <br />
+    <br />
+    가격 설정에 대한 추가적인 도움이 필요하시다면, 언제든지 고객 지원 팀에
+    문의해주시기 바랍니다. <br /> 감사합니다.
+  </div>
+);
 export default function Mypage() {
   const [isModal, setIsModal] = useState("");
   return (
     <div className="flex-col flex items-center gap-10 py-20">
-      <DetailModal
-        title={"입찰 거부 사유"}
-        child={message}
-        id={"승인거부"}
-      />
+      <DetailModal title={"입찰 거부 사유"} child={message} id={"승인거부"} />
 
       <div className="border-2 py-10 px-3 rounded-md flex items-center justify-between w-3/4">
         <div className="flex items-center gap-2">
