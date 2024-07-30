@@ -1,9 +1,11 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { ArrowPathIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import Button from '../Button';
 import { formatDateTime } from './DetailContainer';
 import { useRecoilState } from 'recoil';
 import { bidPriceState } from '../../atom';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const warningText = [
     "낙찰 후 취소하고자 하는 경우, 낙찰자는 낙찰철회비로 낙찰가의 30%에 해당하는 금액을 납부하여야 하므로 신중하게 응찰하시기 바랍니다.",
@@ -12,38 +14,36 @@ const warningText = [
     "부정한 방법으로 경매에 참여할 경우, 해당 계정은 영구적으로 이용이 제한될 수 있습니다. 정직한 참여를 부탁드립니다."
 ]
 
-const totalList = [
-    {
-        date: "2024-09-29T13:00",
-        nickname: "쭈히",
-        price: 30000
-    },
-    {
-        date: "2024-09-29T13:00",
-        nickname: "쭈히",
-        price: 28000
-    },
-    {
-        date: "2024-09-29T13:00",
-        nickname: "쭈히",
-        price: 25000
-    },
 
-]
-
-//totalList props로 넣어야함
 const DetailBidConfirm = ({ startPrice, remainingTime, nowHighPrice }) => {
-    const [bidMoney, setBidMoney] = useState(startPrice)
+    const { id } = useParams()
+    const [bidMoney, setBidMoney] = useState(nowHighPrice)
     const [loading, setLoading] = useState(false)
     const [isTotalBid, setIsTotalBid] = useState(true)
     const [bidCheck, setBidCheck] = useState(false)
 
-    const [bidPrice, setBidPrice] = useRecoilState(bidPriceState)
+    const [totalList, setTotalList] = useState([])
+
+
+
 
     const agreeBid = () => {
-        alert("응찰 되었습니다")
+
         // navigate("/")
-        setBidPrice(bidMoney)
+        axios.post(`${process.env.REACT_APP_BASE_URL}/bids/${id}/buy`, {
+            price: bidMoney
+        }, {
+            headers: {
+                'Authorization': `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwiaWF0IjoxNzIyMzU4NTAxLCJleHAiOjE3MjIzNzY1MDF9.2KMjJrFfdUpC2xVbfVB4utE6n6mqf8V3cb3aqr5KEnE"}`
+            }
+        }).then(res => {
+            console.log(res)
+            alert("응찰 되었습니다")
+        }).catch(err => {
+            console.log(err)
+            alert(err.response.data.message)
+        })
+
     }
 
     const notAgreeChild =
@@ -73,6 +73,13 @@ const DetailBidConfirm = ({ startPrice, remainingTime, nowHighPrice }) => {
         return priceList;
     }
 
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/bids/${id}/histories`).then(res => {
+            console.log(res)
+            setTotalList(res.data.data.bidHistories)
+        }).catch(err => console.log(err))
+    }, [])
+
     return (
         <div>
             {bidCheck ? notAgreeChild
@@ -92,17 +99,16 @@ const DetailBidConfirm = ({ startPrice, remainingTime, nowHighPrice }) => {
                             <p className={`${isTotalBid ? "font-normal underline" : " "}`} onClick={() => setIsTotalBid(true)}>
                                 전체({totalList.length})
                             </p>
-                            <p className={`${!isTotalBid ? "font-normal underline" : " "}`} onClick={() => setIsTotalBid(false)}>내 응찰(1)</p>
                         </div>
                         <div className='h-40 overflow-y-scroll'>
                             {isTotalBid ? totalList.map((item, index) =>
                                 <div key={index} className='py-2 border-b border-borderColor'>
                                     <p className='font-thin text-xs'>
-                                        {formatDateTime(item.date)}
+                                        {formatDateTime(item.createdAt)}
                                     </p>
                                     <div className='flex justify-between px-4'>
                                         <p className='pl-4'>
-                                            {item.nickname}
+                                            {item.memberName}
                                         </p>
                                         <div>
                                             {item.price}
@@ -147,7 +153,7 @@ const DetailBidConfirm = ({ startPrice, remainingTime, nowHighPrice }) => {
                                 </p>
                             </div>
                             <ul tabIndex={0} className="dropdown-content  menu block bg-base-100 rounded-box z-[1] w-52 p-2 m-1 shadow h-40 overflow-y-scroll">
-                                {generatePriceList(startPrice).map((price) =>
+                                {generatePriceList(nowHighPrice).map((price) =>
                                     <li onClick={() => setBidMoney(price)} key={price}><a>{price}</a></li>
                                 )}
                             </ul>

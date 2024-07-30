@@ -147,7 +147,7 @@ const DetailContainer = ({ bidId, time, productName, startPrice, nowHighPrice, i
                                 <DetailModal
                                     title={"응찰 내역"}
                                     child={
-                                        < DetailBidConfirm startPrice={startPrice} nowHighPrice={nowHighPrice} remainingTime={getTimeRemaining(time)} setBidPrice={setBidPrice} />}
+                                        < DetailBidConfirm startPrice={startPrice} nowHighPrice={nowHighPrice} remainingTime={getTimeRemaining(time)} setBidPrice={setBidPrice} bidId={bidId} />}
                                     id={'응찰하기'} />
 
 
