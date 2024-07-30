@@ -20,8 +20,8 @@ const Table = ({ rows, list }) => {
               className={`${index === list.length - 1 ? "" : "border-b border-borderColor "
                 }`}
               onClick={() => {
-                if (item.status !== BID_STATUS.REJECT_CONFIRM) {
-                  navigate(`${item.id}`)
+                if (item.status !== BID_STATUS.REJECT_CONFIRM || item.completeStatus !== BID_STATUS.REJECT_CONFIRM) {
+                  navigate(`${item.bidId}`)
                 }
 
               }
@@ -34,14 +34,14 @@ const Table = ({ rows, list }) => {
                 />
               </th>
               <th>{item.itemName}</th>
-              {item.bidTime ? <th>{item.time}</th> : null}
-              {item.bidPrice ? <th>{item.startPrice}</th> : null}
+              {item.time ? <th>{item.time}</th> : null}
+              {item.startPrice ? <th>{item.startPrice}</th> : null}
               <th
-                className={`${item.status === BID_STATUS.REJECT_CONFIRM ? "text-warningColor" : ""
+                className={`${item.status === BID_STATUS.REJECT_CONFIRM || item.completeStatus !== BID_STATUS.REJECT_CONFIRM ? "text-warningColor" : ""
                   }`}
                 onClick={() => document.getElementById("승인거부").showModal()}
               >
-                {item.bidStatus}
+                {item.bidStatus || item.completeStatus}
               </th>
             </tr>
           ))}

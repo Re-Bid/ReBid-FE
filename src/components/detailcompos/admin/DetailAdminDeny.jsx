@@ -2,13 +2,22 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../../Button';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const DetailAdminDeny = () => {
+const DetailAdminDeny = ({ bidId }) => {
     const { register, handleSubmit } = useForm()
     const navigate = useNavigate()
 
     const onValid = (data) => {
         console.log(data)
+
+        axios.put(`${process.env.REACT_APP_BASE_URL}/admin/bids/${bidId}/reject`, {
+            rejectReason: data.denyReason
+        }, {
+            headers: {
+                'Authorization': `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwiaWF0IjoxNzIyMzU4NTAxLCJleHAiOjE3MjIzNzY1MDF9.2KMjJrFfdUpC2xVbfVB4utE6n6mqf8V3cb3aqr5KEnE"}`
+            }
+        }).then(res => console.log(res)).catch(err => console.log(err))
         alert("반려되었습니다")
         navigate("/admin/list")
     }
