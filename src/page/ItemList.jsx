@@ -23,15 +23,11 @@ export default function ItemList() {
     }
   }, [category]);
 
-  const arr = [
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-  ];
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="self-start font-bold text-3xl pt-10 px-10">{name}</div>
       <div className="grid grid-cols-4">
-        {arr.map((e, i) => {
+        {Array(20).fill(2).map((e, i) => {
           return (
             <div className="my-10 mx-2" key={i}>
               <ListCard />

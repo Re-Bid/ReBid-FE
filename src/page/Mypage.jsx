@@ -1,46 +1,11 @@
 import { UserIcon } from "@heroicons/react/24/solid";
 import Tabel from "../components/Table";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import DetailModal from "../components/detailcompos/DetailModal";
+import axios from "axios";
+import { BID_STATUS } from "../components/BidType";
 
-const list = [
-  {
-    imgUrl: "",
-    productName: "구윤찬",
-    time: "2024-07-89",
-    startPrice: "15000",
-    status: "입찰 중",
-  },
-  {
-    imgUrl: "",
-    productName: "구윤찬",
-    time: "2024-07-89",
-    startPrice: "15000",
-    status: "입찰 중",
-  },
-  {
-    imgUrl: "",
-    productName: "구윤찬",
-    time: "2024-07-89",
-    startPrice: "15000",
-    status: "입찰 중",
-  },
-  {
-    imgUrl: "",
-    productName: "구윤찬",
-    time: "2024-07-89",
-    startPrice: "15000",
-    status: "입찰 중",
-  },
-  {
-    imgUrl: "",
-    productName: "구윤찬",
-    time: "2024-07-89",
-    startPrice: "15000",
-    status: "입찰 중",
-  },
-];
 
 const list2 = [
   {
@@ -81,100 +46,115 @@ const message = (
 );
 export default function Mypage() {
   const [isModal, setIsModal] = useState("");
+  const [loading, setLoading] = useState(false)
+  const [data, setData] = useState()
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/members/myPage`, {
+      headers: {
+        'Authorization': `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MjYsImlhdCI6MTcyMjM0NTE4OCwiZXhwIjoxNzIyMzYzMTg4fQ.HXrg7f2DLVqLfd1BPSvCcRqbvyiaKtAmmYE0HNGHEWU"}`
+      }
+    }).then(res => {
+      console.log(res)
+      setData(res.data.data)
+      setLoading(true)
+    }).catch(err => console.log(err))
+
+  }, [])
   return (
-    <div className="flex-col flex items-center gap-10 py-20">
-      <DetailModal title={"입찰 거부 사유"} child={message} id={"승인거부"} />
+    <Fragment>
+      {loading ?
+        <div className="flex-col flex items-center gap-10 py-20">
+          <DetailModal title={"입찰 거부 사유"} child={message} id={"승인거부"} />
 
-      <div className="border-2 py-10 px-3 rounded-md flex items-center justify-between w-3/4">
-        <div className="flex items-center gap-2">
-          <div className="bg-neutral-300 size-[50px] rounded-full">
-            <UserIcon className="text-white relative top-1" />
-          </div>
-          <div>
-            <div className="font-bold">username</div>
-            <div className="text-sm opacity-65">email@email.com</div>
-          </div>
-        </div>
-        <div className="text-borderColor px-3 py-1 rounded-md border-2 ">
-          프로필 관리
-        </div>
-      </div>
-
-      <div className="w-full flex items-center flex-col gap-4">
-        <div className="w-3/4 flex flex-col items-center gap-4">
-          <div className="self-start font-bold text-lg">구매 내역</div>
-          <div className="bg-[#FAFAFA] py-2 h-[100px] px-10 rounded-md flex items-center justify-around w-full">
-            <div className="flex flex-col items-center">
-              <div className="font-thin">전체</div>
-              <div>3</div>
+          <div className="border-2 py-10 px-3 rounded-md flex items-center justify-between w-3/4">
+            <div className="flex items-center gap-2">
+              <div className="bg-neutral-300 size-[50px] rounded-full">
+                <UserIcon className="text-white relative top-1" />
+              </div>
+              <div>
+                <div className="font-bold">{data.nickname}</div>
+                <div className="text-sm opacity-65">email@email.com</div>
+              </div>
             </div>
-
-            <div className="w-0 h-full border-[1px] border-borderColor opacity-40" />
-
-            <div className="flex flex-col items-center">
-              <div className="font-thin">입찰중</div>
-              <div>1</div>
-            </div>
-
-            <div className="flex flex-col items-center">
-              <div className="font-thin">진행중</div>
-              <div>0</div>
-            </div>
-
-            <div className="w-0 h-full border-[1px] border-borderColor opacity-40" />
-
-            <div className="flex flex-col items-center">
-              <div className="font-thin">완료</div>
-              <div>2</div>
+            <div className="text-borderColor px-3 py-1 rounded-md border-2 ">
+              프로필 관리
             </div>
           </div>
-        </div>
-        <div className="w-3/4">
-          <Tabel
-            rows={["사진", "제품명", "입찰 시간", "입찰가", "상태"]}
-            list={list}
-          />
-        </div>
-      </div>
 
-      <div className="w-full flex items-center flex-col gap-4">
-        <div className="w-3/4 flex flex-col items-center gap-4">
-          <div className="self-start font-bold text-xl">판매 내역</div>
-          <div className="bg-[#FAFAFA] py-2 h-[100px] px-10 rounded-md flex items-center justify-around w-full">
-            <div className="flex flex-col items-center">
-              <div className="font-thin">전체</div>
-              <div>3</div>
+          <div className="w-full flex items-center flex-col gap-4">
+            <div className="w-3/4 flex flex-col items-center gap-4">
+              <div className="self-start font-bold text-lg">구매 내역</div>
+              <div className="bg-[#FAFAFA] py-2 h-[100px] px-10 rounded-md flex items-center justify-around w-full">
+                <div className="flex flex-col items-center">
+                  <div className="font-thin">전체</div>
+                  <div>{data.orders.length}</div>
+                </div>
+
+                <div className="w-0 h-full border-[1px] border-borderColor opacity-40" />
+
+                <div className="flex flex-col items-center">
+                  <div className="font-thin">입찰중</div>
+                  <div>
+                    {data.orders.filter(item => item.status === BID_STATUS.ONGOING_BID).length}
+                  </div>
+                </div>
+
+                <div className="w-0 h-full border-[1px] border-borderColor opacity-40" />
+
+                <div className="flex flex-col items-center">
+                  <div className="font-thin">완료</div>
+                  <div>{data.orders.filter(item => item.status === BID_STATUS.COMPLETE_BID).length}</div>
+                </div>
+              </div>
             </div>
-
-            <div className="w-0 h-full border-[1px] border-borderColor opacity-40" />
-
-            <div className="flex flex-col items-center">
-              <div className="font-thin">입찰중</div>
-              <div>1</div>
+            <div className="w-3/4">
+              <Tabel
+                rows={["사진", "제품명", "입찰 시간", "입찰가", "상태"]}
+                list={data.orders}
+              />
             </div>
+          </div>
 
-            <div className="flex flex-col items-center">
-              <div className="font-thin">진행중</div>
-              <div>0</div>
+          <div className="w-full flex items-center flex-col gap-4">
+            <div className="w-3/4 flex flex-col items-center gap-4">
+              <div className="self-start font-bold text-xl">판매 내역</div>
+              <div className="bg-[#FAFAFA] py-2 h-[100px] px-10 rounded-md flex items-center justify-around w-full">
+                <div className="flex flex-col items-center">
+                  <div className="font-thin">전체</div>
+                  <div>{data.sales.length}</div>
+                </div>
+
+                <div className="w-0 h-full border-[1px] border-borderColor opacity-40" />
+
+                <div className="flex flex-col items-center">
+                  <div className="font-thin">입찰중</div>
+                  <div>{data.sales.filter(item => item.status === BID_STATUS.ONGOING_BID).length}</div>
+                </div>
+
+
+                <div className="w-0 h-full border-[1px] border-borderColor opacity-40" />
+                <div className="flex flex-col items-center">
+                  <div className="font-thin">승인 거부</div>
+                  <div className=" text-warningColor">{data.sales.filter(item => item.status === BID_STATUS.REJECT_CONFIRM).length}</div>
+                </div>
+                <div className="w-0 h-full border-[1px] border-borderColor opacity-40" />
+
+                <div className="flex flex-col items-center">
+                  <div className="font-thin">완료</div>
+                  <div>{data.sales.filter(item => item.status === BID_STATUS.COMPLETE_BID).length}</div>
+                </div>
+              </div>
             </div>
-
-            <div className="w-0 h-full border-[1px] border-borderColor opacity-40" />
-            <div className="flex flex-col items-center">
-              <div className="font-thin">승인 거부</div>
-              <div className=" text-warningColor">1</div>
-            </div>
-            <div className="w-0 h-full border-[1px] border-borderColor opacity-40" />
-
-            <div className="flex flex-col items-center">
-              <div className="font-thin">완료</div>
-              <div>2</div>
+            <div className="w-3/4">
+              <Tabel rows={["사진", "제품명", "입찰 시간", "상태"]} list={data.sales} />
             </div>
           </div>
         </div>
-        <div className="w-3/4">
-          <Tabel rows={["사진", "제품명", "입찰 시간", "상태"]} list={list2} />
-        </div>
-      </div>
-    </div>
+        :
+        null
+      }
+    </Fragment>
+
   );
 }

@@ -8,13 +8,9 @@ import DetailAdminDeny from "./admin/DetailAdminDeny";
 import DetailAdminModal from "./admin/DetailAdminModal";
 import DetailBidConfirm from "./DetailBidConfirm";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { bidPriceState } from "../../atom";
 
-const warningText = [
-    "낙찰 후 취소하고자 하는 경우, 낙찰자는 낙찰철회비로 낙찰가의 30%에 해당하는 금액을 납부하여야 하므로 신중하게 응찰하시기 바랍니다.",
-    "응찰 시 유의사항 경매에 참여하기 전에 상품의 상세 정보를 반드시 확인하시기 바랍니다. 제품 상태, 설명, 사진 등을 꼼꼼히 검토해 주세요.",
-    "낙찰 후 24시간 이내에 결제를 완료해 주셔야 합니다. 기한 내에 결제가 이루어지지 않을 경우 낙찰이 자동으로 취소될 수 있습니다.",
-    "부정한 방법으로 경매에 참여할 경우, 해당 계정은 영구적으로 이용이 제한될 수 있습니다. 정직한 참여를 부탁드립니다."
-]
 
 export function formatDateTime(targetDateString) {
     // 입력된 날짜와 시간을 파싱
@@ -31,33 +27,17 @@ export function formatDateTime(targetDateString) {
 }
 
 
-const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bidType, isAdmin, isSell }) => {
+const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bidType, isAdmin, isSell, isHeart }) => {
 
     const [loading, setLoading] = useState(false)
-    const [heartClick, setHeartClick] = useState(false)
+    const [heartClick, setHeartClick] = useState(isHeart)
     const [agreeClick, setAgreeClick] = useState(false)
+
+    const [bidPrice, setBidPrice] = useRecoilState(bidPriceState)
 
     const navigate = useNavigate()
 
-    const notAgreeChild =
-        <div>
-            <div className="py-4 border-b border-borderColor">
-                {warningText.map((text, i) =>
-                    <div key={i} className="pb-5 text-sm">∙ {text}</div>
-                )}
-            </div>
-            <div className="text-center py-7 text-lg font-bold">온라인 경매 및 위 응찰 유의사항을 확인하였으며,<br /> 동의하므로 응찰합니다</div>
 
-            <div onClick={() => {
-                alert("응찰 되었습니다")
-                navigate("/")
-            }}>
-                <Button text="동의 및 응찰" />
-            </div>
-
-
-
-        </div>
 
 
     function getTimeRemaining(targetDateString) {
@@ -77,14 +57,15 @@ const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bi
 
     return (
         <div className="flex-1 ">
-            {bidType === "기간 경매" ? <div className="text-end pb-3">
-                <div>
-                    남은 시간
-                </div>
-                <div className="font-bold">
-                    {getTimeRemaining(time)}
-                </div>
-            </div> : null}
+            {bidType === "RESERVATION" ?
+                <div className="text-end pb-3">
+                    <div>
+                        남은 시간
+                    </div>
+                    <div className="font-bold">
+                        {getTimeRemaining(time)}
+                    </div>
+                </div> : null}
 
             <div className="flex justify-between items-center">
                 <div className="text-3xl">{productName}</div>
@@ -114,7 +95,7 @@ const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bi
                         <div>{bidType}</div>
                     </Fragment> :
 
-                        bidType === "기간 경매" ?
+                        bidType === "RESERVATION" ?
                             <Fragment>
                                 <div>현재 최고 응찰가</div>
                                 <div className="text-warningColor flex items-center space-x-2">
@@ -149,7 +130,7 @@ const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bi
                         <div className="bg-bgColor p-3 rounded-md text-center">
                             {isSell ? "🎊축하합니다! 낙찰되셨습니다!🎊" : <Fragment>
 
-                                {bidType === "기간 경매" ? "마감시간 :" : "경매시간 : "}
+                                {bidType === "RESERVATION" ? "마감시간 :" : "경매시간 : "}
 
                                 <span className="text-warningColor">
                                     {formatDateTime(time)}</span>
@@ -166,7 +147,11 @@ const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bi
                                     <Button text="응찰하기" />
                                 </div>
 
-                                <DetailModal title={agreeClick ? "응찰 내역" : "온라인 입찰 주의사항"} child={agreeClick ? notAgreeChild : < DetailBidConfirm startPrice={15000} setAgreeClickFunc={setAgreeClick} />} id={'응찰하기'} />
+                                <DetailModal
+                                    title={"응찰 내역"}
+                                    child={
+                                        < DetailBidConfirm startPrice={startPrice} nowHighPrice={nowHighPrice} remainingTime={getTimeRemaining(time)} setBidPrice={setBidPrice} />}
+                                    id={'응찰하기'} />
 
 
                             </Fragment>
