@@ -15,7 +15,7 @@ export default function Layout() {
 
       <div className="min-h-[150px] py-10 bg-neutral-200 px-10 opacity-50 text-[13px] min-w-[1024px] ">
         <img src={logo} alt="logo" className="size-12" />
-        Copyright © 2024 - All right reserved by ACME Industries Ltd
+        Copyright © 2024 - All right reserved by 뀨쬬 SPARCS AI HACKATON Team
       </div>
     </div>
   );
