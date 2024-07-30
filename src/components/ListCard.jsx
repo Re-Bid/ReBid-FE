@@ -69,7 +69,9 @@ export default function ListCard({ ...props }) {
           <span>₩{detail?.startPrice}</span>
         </div>
         <hr />
-        <div className="opacity-50 text-[13px] py-2">{detail?.itemIntro}</div>
+        <div className="opacity-50 text-[13px] py-2 h-[30px] truncate">
+          {detail?.itemIntro}
+        </div>
       </div>
     </div>
   );
