@@ -35,12 +35,14 @@ const Banner = ({ bid }) => {
           </div>
         </div>
       </div>
-      <div
-        className="bg-neutral-300 bg-center bg-cover"
-        style={{
-          backgroundImage: `url(${banner.imageUrls[0]})`,
-        }}
-      ></div>
+      {banner?.imageUrls ? (
+        <div
+          className="bg-neutral-300 bg-center bg-cover"
+          style={{
+            backgroundImage: `url(${banner?.imageUrls[0]})`,
+          }}
+        />
+      ) : null}
     </div>
   );
 };

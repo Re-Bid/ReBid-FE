@@ -19,6 +19,8 @@ import Loading from "./page/Loading";
 import MaterialBoard from "./page/board/MaterialBoard";
 import MaterialBoardDetail from "./page/board/MaterialBoardDetail";
 import SignUp from "./components/auth/SignUp";
+import MaterialBoardUpload from "./page/board/MaterialBoardUpload";
+import Notfound from "./page/Notfound";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +49,7 @@ const router = createBrowserRouter([
       { path: "/materialBoard", element: <MaterialBoard /> },
       { path: "/materialBoard/:id", element: <MaterialBoardDetail /> },
       { path: "/signup", element: <SignUp /> },
+      { path: "/materialBoard/upload", element: <MaterialBoardUpload /> },
     ],
   },
   { path: "/test", element: <Test /> },
@@ -64,6 +67,7 @@ const router = createBrowserRouter([
     ],
   },
   { path: "/loading", element: <Loading /> },
+  { path: "/*", element: <Notfound /> },
 ]);
 function App() {
   return (
