@@ -3,15 +3,20 @@ import Naver from "../../asset/naver.png";
 import Logo from "../../asset/logo.png";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../atom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import Button from "../../components/Button";
+import axios from "axios";
 
 export default function Login() {
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
   const onSubmit = (data) => {
-    console.log(data);
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}/members/login`, data)
+      .then((r) => navigate("/"))
+      .catch((e) => console.log(e));
   };
   return (
     <Fragment>
