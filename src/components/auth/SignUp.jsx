@@ -3,11 +3,22 @@ import Logo from "../../asset/logo.png";
 import Naver from "../../asset/circleNaver.png";
 import { useForm } from "react-hook-form";
 import Button from "../Button";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
   const onSubmit = (e) => {
-    console.log(e);
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}/members/signup`, {
+        nickname: e.nickname,
+        email: e.email,
+        address: e.address,
+        password: e.password,
+      })
+      .then((r) => navigate("/login"))
+      .catch((e) => console.error(e));
   };
   return (
     <form
@@ -33,9 +44,9 @@ const SignUp = () => {
           <div className="">
             <div>닉네임</div>
             <input
-              {...register("username")}
+              {...register("nickname")}
               type="text"
-              name="username"
+              name="nickname"
               placeholder="닉네임을 입력해주세요"
               required
               className="inputText"
@@ -54,26 +65,21 @@ const SignUp = () => {
           </div>
           <div className="">
             <div>주소</div>
-            <input className="inputText" placeholder="주소를 입력해주세요" />
+            <input
+              {...register("address")}
+              name="address"
+              className="inputText"
+              placeholder="주소를 입력해주세요"
+            />
           </div>
         </div>
         <div className="space-y-2 mb-5">
           <label className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              required
-              className="checkbox"
-              {...register("term1")}
-            />
+            <input type="checkbox" required className="checkbox" />
             <div>이용약관 동의</div>
           </label>
           <label className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              required
-              className="checkbox"
-              {...register("term2")}
-            />
+            <input type="checkbox" required className="checkbox" />
             <div>개인정보 수집 이용 동의</div>
           </label>
         </div>

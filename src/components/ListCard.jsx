@@ -68,6 +68,10 @@ export default function ListCard({ ...props }) {
           <span className="font-bold">시작가</span>
           <span>₩{detail?.startPrice}</span>
         </div>
+        <div className="text-[13px] flex justify-between opacity-50 pb-2">
+          <span className="font-bold">현재가</span>
+          <span>₩{detail?.currentPrice}</span>
+        </div>
         <hr />
         <div className="opacity-50 text-[13px] py-2 h-[30px] truncate">
           {detail?.itemIntro}
