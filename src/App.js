@@ -16,6 +16,8 @@ import AdminLayout from "./AdminLayout";
 import Test from "./test";
 import ItemDetailSell from "./page/ItemDetailSell";
 import Loading from "./page/Loading";
+import MaterialBoard from "./page/board/MaterialBoard";
+import MaterialBoardDetail from "./page/board/MaterialBoardDetail";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +43,8 @@ const router = createBrowserRouter([
       { path: "/likelists", element: <LikeLists /> },
       { path: "/login", element: <Login /> },
       { path: "/login/term", element: <Term /> },
+      { path: "/materialBoard", element: <MaterialBoard /> },
+      { path: "/materialBoard/:id", element: <MaterialBoardDetail /> }
     ],
   },
   { path: "/test", element: <Test /> },

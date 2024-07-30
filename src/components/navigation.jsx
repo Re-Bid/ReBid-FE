@@ -24,6 +24,7 @@ export default function Navigation() {
         <div onClick={() => navigate("/login")}>로그인</div>
         <div onClick={() => navigate("/likelists")}>찜한 상품</div>
         <div onClick={() => navigate("/mypage")}>마이페이지</div>
+        <div onClick={() => navigate("/materialBoard")}>재료 게시판</div>
         <div onClick={() => navigate("/sell")}>판매하기</div>
       </div>
 
