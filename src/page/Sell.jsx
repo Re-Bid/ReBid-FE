@@ -1,6 +1,5 @@
 import { CameraIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import Button from "../components/Button";
 
 export default function Sell() {
   const [images, setImages] = useState([]);
