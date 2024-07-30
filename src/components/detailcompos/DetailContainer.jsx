@@ -27,7 +27,7 @@ export function formatDateTime(targetDateString) {
 }
 
 
-const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bidType, isAdmin, isSell, isHeart }) => {
+const DetailContainer = ({ bidId, time, productName, startPrice, nowHighPrice, info, bidType, isAdmin, isSell, isHeart }) => {
 
     const [loading, setLoading] = useState(false)
     const [heartClick, setHeartClick] = useState(isHeart)
@@ -90,10 +90,7 @@ const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bi
                         <div className="text-warningColor">30,000원</div>
                     </Fragment>
                     :
-                    isAdmin ? <Fragment>
-                        <div>경매 유형</div>
-                        <div>{bidType}</div>
-                    </Fragment> :
+                    isAdmin ? null :
 
                         bidType === "RESERVATION" ?
                             <Fragment>
@@ -116,11 +113,11 @@ const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bi
                     <Fragment>
                         <div className="w-full" onClick={() => document.getElementById('deny').showModal()}>
                             <Button text="반려하기" isGray />
-                            <DetailAdminModal id={"deny"} title="반려하기" />
+                            <DetailAdminModal id={"deny"} title="반려하기" bidId={bidId} />
                         </div>
                         <div className="w-full" onClick={() => document.getElementById('approve').showModal()}>
                             <Button text="승인하기" />
-                            <DetailAdminModal id={'approve'} bidType={bidType} />
+                            <DetailAdminModal id={'approve'} bidType={bidType} bidId={bidId} />
                         </div>
 
 

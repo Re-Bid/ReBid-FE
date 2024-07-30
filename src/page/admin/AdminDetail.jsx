@@ -1,45 +1,69 @@
+import { useParams } from "react-router-dom";
 import DetailContainer from "../../components/detailcompos/DetailContainer";
+import { Fragment, useEffect, useState } from "react";
+import axios from "axios";
 
 export default function AdminDetail() {
-  return <div>
-    <div className="py-7">
-      <div className="px-10">
+  const { id } = useParams()
+  const [data, setData] = useState()
+  const [imgUrl, setImgUrl] = useState("")
+  const [loading, setLoading] = useState(false)
 
-        <div className="flex space-x-7 pb-10">
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/admin/bids/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwiaWF0IjoxNzIyMzU4NTAxLCJleHAiOjE3MjIzNzY1MDF9.2KMjJrFfdUpC2xVbfVB4utE6n6mqf8V3cb3aqr5KEnE"}`
+      }
+    }).then(res => {
+      console.log(res)
+      setData(res.data.data)
+      setImgUrl(res.data.data.imageUrl[0])
+      setLoading(true)
+    }).catch(err => console.log(err))
+  }, [])
+  return (
+    <Fragment>
+      {!loading ? <div className="w-full flex justify-center">
+        <span className="loading loading-infinity loading-lg"></span>
+      </div> : <div>
+        <div className="py-7">
+          <div className="px-10">
 
-          <img className="w-[504px] h-[400px]" />
-          <DetailContainer
-            productName={"스타일리시 목제 테이블"}
-            time="2024-08-07T16:00"
-            startPrice={" 15,000원"}
-            nowHighPrice={"20,000원"}
-            info={"오래된 나무 팔레트로 만든 이 커피 테이블은 유리 상판과 강철 다리로 러스틱하고 모던한 미학을 결합하였습니다"}
-            bidType={"실시간 경매"}
-            isAdmin
+            <div className="flex space-x-7 pb-10">
 
-          />
+              <div>
+                <img className="w-[504px] h-[400px]" src={imgUrl} />
+                <div className="flex space-x-4 py-3">
+                  {data?.imageUrl.map((item, index) => (
+                    <img onClick={() => setImgUrl(item)} src={item} className="h-16 w-16" />
+                  ))}
+                </div>
+              </div>
+              <DetailContainer
+                bidId={data?.bidId}
+                productName={data?.itemName}
+                startPrice={data?.startPrice}
+                info={data?.itemIntro}
+                isAdmin
 
+              />
+
+
+            </div>
+          </div>
+          <hr className="border-borderColor" />
+          <div className="p-10 space-y-5">
+            <div className="font-bold">
+              제품 소개
+            </div>
+            <div>
+              {data?.itemDescription}
+            </div>
+          </div>
 
         </div>
-      </div>
-      <hr className="border-borderColor" />
-      <div className="p-10 space-y-5">
-        <div className="font-bold">
-          제품 소개
-        </div>
-        <div>
-          간략한 소개 어쩌구저쩌구
-          어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구
-          어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구
-          어쩌구저쩌구어쩌구저쩌구
-
-          어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구
-          어쩌구저쩌구어쩌구저쩌구
-
-          어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구
-        </div>
-      </div>
-
-    </div>
-  </div>;
+      </div>}
+    </Fragment>
+  )
+    ;
 }
