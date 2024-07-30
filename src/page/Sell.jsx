@@ -1,4 +1,5 @@
 import { CameraIcon } from "@heroicons/react/24/outline";
+import axios from "axios";
 import { useState } from "react";
 
 export default function Sell() {
@@ -10,30 +11,40 @@ export default function Sell() {
   const [detail, setDetail] = useState("");
   const [type, setType] = useState("realTime");
   const [tag, setTag] = useState([]);
-  const onSubmit = (e) => {
+  const [convertUrl, setConvertedUrl] = useState([]);
+
+  const onSubmit = async (e) => {
     e.preventDefault();
-    setItemName(e.target[1].value);
-    setPrice(e.target[11].value);
-    setShortDisc(e.target[12].value);
-    setDetail(e.target[13].value);
+    console.log(e);
+    let selectedCategory = "BAG";
     if (e.target[4].checked) {
-      setType("period");
+      selectedCategory = "KEYRING";
+    } else if (e.target[5].checked) {
+      selectedCategory = "POUCH";
+    } else if (e.target[6].checked) {
+      selectedCategory = "WALLET";
+    } else if (e.target[7].checked) {
+      selectedCategory = "ETC";
     }
-    if (e.target[6].checked) {
-      setTag((prev) => [...prev, e.target[6].id]);
-    }
-    if (e.target[7].checked) {
-      setTag((prev) => [...prev, e.target[7].id]);
-    }
-    if (e.target[8].checked) {
-      setTag((prev) => [...prev, e.target[8].id]);
-    }
-    if (e.target[9].checked) {
-      setTag((prev) => [...prev, e.target[9].id]);
-    }
-    if (e.target[10].checked) {
-      setTag((prev) => [...prev, e.target[10].id]);
-    }
+    const sellData = {
+      itemName: e.target[1].value,
+      category: selectedCategory,
+      startPrice: parseInt(e.target[8].value),
+      itemIntro: e.target[9].value,
+      itemDescription: e.target[10].value,
+      imageUrls: convertUrl,
+      startDate: null,
+      endDate: null,
+    };
+    await axios
+      .post(`${process.env.REACT_APP_BASE_URL}/bids/sell`, sellData, {
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwiaWF0IjoxNzIyMzU4NTAxLCJleHAiOjE3MjIzNzY1MDF9.2KMjJrFfdUpC2xVbfVB4utE6n6mqf8V3cb3aqr5KEnE",
+        },
+      })
+      .then((res) => console.log(res))
+      .catch((e) => console.log(e));
   };
 
   const onFileUpload = (e) => {
@@ -51,6 +62,43 @@ export default function Sell() {
       }
     } else {
       alert("사진은 최대 5개까지 입력 가능합니다.");
+    }
+  };
+
+  const fileUrlConverter = async (data) => {
+    let temp = [];
+    let err = null;
+    try {
+      for (let i = 0; i < data.target.files.length; i++) {
+        const formData = new FormData();
+        const imageUrl = URL.createObjectURL(data.target.files[i]);
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        const imageFile = new File([blob], "project_image.jpg", {
+          type: "image/jpeg",
+        });
+        formData.append("image", imageFile);
+
+        const res = await axios({
+          method: "post",
+          url: `${process.env.REACT_APP_BASE_URL}/imageTest`,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          data: formData,
+          transformRequest: (data, headers) => {
+            return data;
+          },
+        });
+        temp.push(res.data.data);
+      }
+    } catch (e) {
+      err = e;
+      console.log(e);
+    } finally {
+      if (!err) {
+        return temp;
+      }
     }
   };
 
@@ -74,7 +122,20 @@ export default function Sell() {
               </span>
             </div>
             <input
-              onChange={onFileUpload}
+              onChange={async (e) => {
+                const res = await fileUrlConverter(e);
+                console.log(res);
+                if (res) {
+                  setConvertedUrl((prev) => [...prev, ...res]);
+                  if (e.target.files.length === res.length) {
+                    onFileUpload(e);
+                  }
+                } else {
+                  alert(
+                    "파일의 용량이나 형식을 확인해주세요. 10MB이상 이거나 이미지 파일이 아닐 경우 문제가 발생합니다."
+                  );
+                }
+              }}
               type="file"
               name="photo"
               id="photo"
@@ -110,31 +171,6 @@ export default function Sell() {
             required
             placeholder="상품명을 입력해주세요"
           />
-
-          <div>경매 유형</div>
-          <fieldset className="flex gap-4 items-center">
-            <label htmlFor="realTime" className="flex items-center gap-1">
-              <input
-                type="radio"
-                name="type"
-                id="realTime"
-                className="checkbox"
-                defaultChecked
-                readOnly
-              />
-              실시간 경매
-            </label>
-            <label htmlFor="period" className="flex items-center gap-1">
-              <input
-                type="radio"
-                name="type"
-                id="period"
-                className="checkbox"
-                readOnly
-              />
-              기간 경매
-            </label>
-          </fieldset>
 
           <div>상품 유형</div>
           <fieldset className="flex gap-4 items-center">

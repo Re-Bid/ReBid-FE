@@ -9,7 +9,9 @@ import { useCookies } from "react-cookie";
 export default function Login() {
   const [login, setLogin] = useRecoilState(loginState);
   const [cookie, setCookie, removeCookie] = useCookies(["userToken"]);
-  console.log(cookie);
+  if (cookie) {
+    console.log(cookie);
+  }
   return (
     <Fragment>
       <div className="flex flex-col justify-center items-center mt-60 mb-40 space-y-24">
