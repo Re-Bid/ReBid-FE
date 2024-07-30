@@ -61,9 +61,15 @@ export default function HomePhoto({ image, name, bidId }) {
         </div>
       ) : null}
       <div className="w-[200px] h-[150px] cursor-pointer">
-        <div onMouseEnter={onMouseEvent} className="h-full bg-neutral-200">
-          <img src={image} alt="image" className="w-full h-full" />
-        </div>
+        {image ? (
+          <div
+            onMouseEnter={onMouseEvent}
+            className="h-full bg-neutral-200 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${image})`,
+            }}
+          />
+        ) : null}
       </div>
     </div>
   );
