@@ -156,11 +156,24 @@ const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bi
                             </Fragment>}
 
                         </div>
-                        <div className="w-full btn bg-green-400 hover:bg-green-400">
-                            네이버로 결제하기
-                        </div>
+                        {isSell ?
+                            <div className="w-full btn bg-green-400 hover:bg-green-400">
+                                네이버로 결제하기
+                            </div>
+                            :
+                            <Fragment>
+                                <div onClick={() => document.getElementById('응찰하기').showModal()}>
+                                    <Button text="응찰하기" />
+                                </div>
 
-                        <DetailModal title={agreeClick ? "응찰 내역" : "온라인 입찰 주의사항"} child={agreeClick ? notAgreeChild : < DetailBidConfirm startPrice={15000} setAgreeClickFunc={setAgreeClick} />} id={'my_modal_3'} />
+                                <DetailModal title={agreeClick ? "응찰 내역" : "온라인 입찰 주의사항"} child={agreeClick ? notAgreeChild : < DetailBidConfirm startPrice={15000} setAgreeClickFunc={setAgreeClick} />} id={'응찰하기'} />
+
+
+                            </Fragment>
+                        }
+
+
+
 
                     </Fragment>
 
