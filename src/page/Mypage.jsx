@@ -2,7 +2,7 @@ import { UserIcon } from "@heroicons/react/24/solid";
 import Tabel from "../components/Table";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import ItemDetailModal from "../components/ItemDetailModal";
+import DetailModal from "../components/detailcompos/DetailModal";
 
 const list = [
   {
@@ -74,7 +74,7 @@ export default function Mypage() {
   const [isModal, setIsModal] = useState("");
   return (
     <div className="flex-col flex items-center gap-10 py-20">
-      <ItemDetailModal
+      <DetailModal
         title={"입찰 거부 사유"}
         child={message}
         id={"승인거부"}
