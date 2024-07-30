@@ -18,7 +18,13 @@ const Table = ({ rows, list }) => {
               key={index}
               className={`${index === list.length - 1 ? "" : "border-b border-borderColor "
                 }`}
-              onClick={() => navigate(`${item.id}`)}
+              onClick={() => {
+                if (item.status !== '승인 거부') {
+                  navigate(`${item.id}`)
+                }
+
+              }
+              }
             >
               <th className="">
                 <img

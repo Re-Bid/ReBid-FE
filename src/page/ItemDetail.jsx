@@ -22,7 +22,7 @@ export default function ItemDetail() {
             startPrice={"15,000원"}
             nowHighPrice={"20,000원"}
             info={"오래된 나무 팔레트로 만든 이 커피 테이블은 유리 상판과 강철 다리로 러스틱하고 모던한 미학을 결합하였습니다"}
-            bidType={"실시간 경매"}
+            bidType={"기간 경매"}
 
           />
 
