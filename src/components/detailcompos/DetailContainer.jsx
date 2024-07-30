@@ -63,7 +63,8 @@ const DetailContainer = ({ bidId, time, productName, startPrice, nowHighPrice, i
         <div className="flex-1 ">
             <div className="text-end pb-3">
 
-                <div >
+                <div className="text-end">
+                    <p>남는 시간</p>
                     {isAdmin ? null : <TimeCountDown date={time} />}
                 </div>
             </div>

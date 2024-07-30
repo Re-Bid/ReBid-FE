@@ -25,12 +25,8 @@ function TimeCountdown({ date }) {
     }, [date]);
 
     return (
-        <div className='text-end'>
-            <p>
-                남은 시간
-            </p>
-            <p className='font-bold'>{timeRemaining}</p>
-        </div>
+
+        <p className='font-bold'>{timeRemaining}</p>
     );
 }
 
