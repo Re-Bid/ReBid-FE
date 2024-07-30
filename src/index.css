@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+
+@font-face {
+  font-family: "gmarket";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.noto-sans {
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  background-color: white;
+  min-height: 100vh;
+  color: black;
+}
+
+@layer components {
+  .nav {
+    @apply px-2 py-1 rounded-md hover:bg-neutral-300 cursor-pointer;
+  }
+
+  .inputText {
+    @apply input w-full border-borderColor bg-white placeholder:text-neutral-300 focus:ring-0 focus:outline-none focus:border-black focus:border-2;
+  }
+}
