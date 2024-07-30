@@ -12,10 +12,13 @@ const Banner = ({ bid }) => {
     }
   }, [bid]);
   return (
-    <div className="w-full">
-      <div className="h-[350px] w-full grid grid-cols-2">
-        <div className="h-full text-white bg-[#88939A] px-14 py-10 flex flex-col justify-around font-light">
-          <div className="font-bold text-xl">
+    <div className="h-[350px] w-full grid grid-cols-2">
+      <div className="h-full text-white bg-[black] opacity-30 px-14 py-10 flex flex-col justify-around font-light">
+        <div className="font-bold text-3xl">
+          {banner.itemName ? banner.itemName : <div>no Data</div>}
+        </div>
+        <div className="flex flex-col gap-2">
+          <div className="text-xl font-medium">
             {banner.endDate ? (
               formatDateTime(banner.endDate)
             ) : (
@@ -23,23 +26,21 @@ const Banner = ({ bid }) => {
             )}
             에 경매 마감
           </div>
-          <div className="flex flex-col gap-2">
-            <div className="text-xl font-medium">
-              {banner.itemName ? banner.itemName : <div>no Data</div>}
-            </div>
-            <div className="font-thin text-lg">
-              {banner.itemIntro ? banner.itemIntro : <div>no Data</div>}
-            </div>
-            <div className="font-thin text-xs">
-              ₩{banner.startPrice ? banner.startPrice : <div>no Data</div>}
-              부터~
-            </div>
+          <div className="font-thin text-lg">
+            {banner.itemIntro ? banner.itemIntro : <div>no Data</div>}
+          </div>
+          <div className="font-thin text-xs">
+            ₩{banner.startPrice ? banner.startPrice : <div>no Data</div>}
+            부터~
           </div>
         </div>
-        <div className="bg-neutral-300">
-          {banner.imageUrls ? banner.imageUrls[0] : <div>no Data</div>}
-        </div>
       </div>
+      <div
+        className="bg-neutral-300 bg-center bg-cover"
+        style={{
+          backgroundImage: `url(${banner.imageUrls[0]})`,
+        }}
+      ></div>
     </div>
   );
 };

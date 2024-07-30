@@ -33,7 +33,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center">
-      <Banner bid={data[0]} />
+      <Banner bid={data[1]} />
       <div className="flex flex-col gap-5 py-5">
         <div className="text-2xl px-2">지금 진행중인 경매</div>
         <div className="w-[850px] overflow-visible">
