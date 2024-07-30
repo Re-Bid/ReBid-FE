@@ -1,14 +1,15 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Logo from "./asset/logo.png"
 
 
 const AdminLayout = () => {
     const { pathname } = useLocation()
+    const navigate = useNavigate()
 
     return (
         <div className=" min-h-screen min-w-[1024px]">
             {pathname === "/admin" ? null :
-                <div className=" flex items-center justify-center  py-7 ">
+                <div className=" flex items-center justify-center  py-7 cursor-pointer" onClick={() => navigate("/admin/list")}>
                     <img src={Logo} className="w-16 bg-cover" />
                     <div className="font-gmarket text-5xl relative">
                         Re:Bid

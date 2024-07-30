@@ -5,33 +5,39 @@ const rowCompleteList = ["사진", "제품명", "낙찰가", "상태"]
 
 const waitList = [
   {
+    id: 0,
     imgUrl: "",
     productName: "제품명",
     startPrice: 20000,
     status: "승인 대기"
   },
   {
+    id: 1,
     imgUrl: "",
     productName: "제품명",
     startPrice: 20000,
     status: "승인 대기"
   },
   {
+    id: 2,
     imgUrl: "",
     productName: "제품명",
     startPrice: 20000,
     status: "승인 대기"
   },
   {
+    id: 3,
     imgUrl: "",
     productName: "제품명",
     startPrice: 20000,
     status: "승인 대기"
   },
+
 ]
 
 const completeList = [
   {
+    id: 0,
     imgUrl: "",
     productName: "제품명",
     startPrice: 20000,
@@ -44,7 +50,7 @@ export default function AdminList() {
 
 
     <div role="tablist" className="tabs tabs-lifted ">
-      <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="경매 대기" />
+      <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="경매 대기" defaultChecked />
       <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">
         <Table rows={rowWaitList} list={waitList} />
 
@@ -56,7 +62,7 @@ export default function AdminList() {
         role="tab"
         className="tab"
         aria-label="경매 완료"
-        defaultChecked />
+      />
       <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">
 
         <Table rows={rowCompleteList} list={completeList} />

@@ -1,7 +1,9 @@
 
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Table = ({ rows, list }) => {
+  const navigate = useNavigate()
   return (
     <div className="overflow-x-auto ">
       <table className="table">
@@ -14,9 +16,9 @@ const Table = ({ rows, list }) => {
           {list.map((item, index) => (
             <tr
               key={index}
-              className={`${
-                index === list.length - 1 ? "" : "border-b border-borderColor "
-              }`}
+              className={`${index === list.length - 1 ? "" : "border-b border-borderColor "
+                }`}
+              onClick={() => navigate(`${item.id}`)}
             >
               <th className="">
                 <img
@@ -28,9 +30,8 @@ const Table = ({ rows, list }) => {
               {item.time ? <th>{item.time}</th> : null}
               {item.startPrice ? <th>{item.startPrice}</th> : null}
               <th
-                className={`${
-                  item.status === "승인 거부" ? "text-warningColor" : ""
-                }`}
+                className={`${item.status === "승인 거부" ? "text-warningColor" : ""
+                  }`}
                 onClick={() => document.getElementById("승인거부").showModal()}
               >
                 {item.status}
