@@ -1,14 +1,14 @@
 import HomePhoto from "../components/home/HomePhoto";
 import { SwiperSlide, Swiper } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "../style/swiper.css";
-import { Navigation } from "swiper/modules";
-
-import "swiper/css/pagination";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Banner from "../components/home/Banner";
+import { Navigation } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "../style/swiper.css";
+import "swiper/css/pagination";
 
 export default function Home() {
   const [data, setData] = useState([]);

@@ -1,6 +1,5 @@
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import { SwiperSlide } from "swiper/react";
 
 export default function HomePhoto({ image, itemName }) {
   const [isCursor, setIsCursor] = useState(false);
