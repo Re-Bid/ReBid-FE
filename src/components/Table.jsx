@@ -39,7 +39,6 @@ const Table = ({ rows, list }) => {
               <th
                 className={`${item.status === BID_STATUS.REJECT_CONFIRM || item.completeStatus !== BID_STATUS.REJECT_CONFIRM ? "text-warningColor" : ""
                   }`}
-                onClick={() => document.getElementById("승인거부").showModal()}
               >
                 {item.bidStatus || item.completeStatus}
               </th>

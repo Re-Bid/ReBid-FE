@@ -45,6 +45,7 @@ export default function ItemDetail() {
               </div>
 
               <DetailContainer
+                bidId={id}
                 productName={data.itemName}
                 time={data.endDate}
                 startPrice={data.startPrice}
@@ -63,7 +64,7 @@ export default function ItemDetail() {
             <div className="font-bold">
               제품 소개
             </div>
-            <div>
+            <div className="whitespace-pre-wrap">
               {data?.itemDescription}
             </div>
           </div>

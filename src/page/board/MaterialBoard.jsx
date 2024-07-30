@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { formatDateTime } from '../../components/detailcompos/DetailContainer';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
+import axios from 'axios';
 
 const data = {
     title: "병뚜컹 팔아요",
@@ -12,6 +13,9 @@ const data = {
 
 const MaterialBoard = () => {
     const navigate = useNavigate()
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/bids/4/AiRecommend`).then(res => console.log(res)).catch(err => console.log(err))
+    }, [])
     return (
         <div className=''>
             <div className='py-4 space-y-3'>
