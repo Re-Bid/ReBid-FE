@@ -3,37 +3,44 @@ import ListCard from "../components/ListCard.jsx";
 import { useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { nowNav } from "../atom.js";
+import axios from "axios";
+
+const CategoryEnum = Object.freeze({
+  bag: { label: "가방", value: "BAG" },
+  keyring: { label: "키링", value: "KEYRING" },
+  pouch: { label: "파우치", value: "POUCH" },
+  wallet: { label: "지갑", value: "WALLET" },
+  else: { label: "etc", value: "ETC" },
+});
 
 export default function ItemList() {
-  const category = useRecoilValue(nowNav);
+  const { category } = useParams();
   const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [itemLists, setItemLists] = useState([]);
+
   useEffect(() => {
-    if (category === "bag") {
-      setName("가방");
-    } else if (category === "keyring") {
-      setName("키링");
-    } else if (category === "pouch") {
-      setName("파우치");
-    } else if (category === "wallet") {
-      setName("지갑");
-    } else if (category === "else") {
-      setName("etc");
-    } else {
-      setName("");
-    }
+    axios
+      .get(
+        `${process.env.REACT_APP_BASE_URL}/bids/category?name=${CategoryEnum[category].value}`
+      )
+      .then((res) => {
+        setItemLists(res.data.data.bids);
+      })
+      .catch((err) => console.log(err));
   }, [category]);
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="self-start font-bold text-3xl pt-10 px-10">{name}</div>
+      <div className="self-start font-bold text-3xl pt-10 px-10">
+        {CategoryEnum[category].label}
+      </div>
       <div className="grid grid-cols-4">
-        {Array(20).fill(2).map((e, i) => {
-          return (
-            <div className="my-10 mx-2" key={i}>
-              <ListCard />
-            </div>
-          );
-        })}
+        {itemLists?.map((e, i) => (
+          <div className="my-10 mx-2" key={i}>
+            <ListCard {...e} />
+          </div>
+        ))}
       </div>
     </div>
   );

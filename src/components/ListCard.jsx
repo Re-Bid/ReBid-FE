@@ -1,19 +1,58 @@
-import { HeartIcon } from "@heroicons/react/24/outline";
+import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
+import { HeartIcon } from "@heroicons/react/24/solid";
 import logo from "../asset/logo.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-export default function ListCard() {
+export default function ListCard({ ...props }) {
   const navigate = useNavigate();
-  const itemId = 2;
+  const [detail, setDetail] = useState(null);
+  const [isLike, setIsLike] = useState(false);
+
+  const onHeartClick = async () => {
+    await axios({
+      method: "post",
+      url: `${process.env.REACT_APP_BASE_URL}/bids/${detail.bidId}/heart?bidId=${detail.bidId}`,
+      headers: {
+        Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MiwiaWF0IjoxNzIyMzY2MDA5LCJleHAiOjE3MjIzODQwMDl9.8DBuDgU1Jfzb7Oda4IFistbFjt_FVoa8WkOzwO0i9AE"}`,
+      },
+    })
+      .then((r) => {
+        setIsLike((prev) => !prev);
+      })
+      .catch((e) => console.log(e));
+  };
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}/bids/${props.bidId}`, {
+        headers: {
+          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MiwiaWF0IjoxNzIyMzY2MDA5LCJleHAiOjE3MjIzODQwMDl9.8DBuDgU1Jfzb7Oda4IFistbFjt_FVoa8WkOzwO0i9AE"}`,
+        },
+      })
+      .then((res) => {
+        setDetail(res.data.data);
+      });
+  }, [isLike]);
   return (
-    <div
-      onClick={() => navigate(`/detail/${itemId}`)}
-      className="w-[200px] border-2 rounded-md border-borderColor overflow-hidden group hover:shadow-xl hover:scale-105 transition duration-500"
-    >
-      <div className="w-full h-[150px] flex flex-col overflow-hidden">
-        <div className="m-2 self-end absolute rounded-full bg-white shadow-md p-1 z-50">
+    <div className="w-[200px] border-2 rounded-md border-borderColor overflow-hidden group relative hover:shadow-xl hover:scale-105 transition duration-500">
+      <div
+        onClick={() => {
+          onHeartClick();
+        }}
+        className="m-2 self-end absolute right-0 top-0 rounded-full bg-white shadow-md p-1 z-50"
+      >
+        {detail?.isHeart ? (
           <HeartIcon className="size-5" />
-        </div>
+        ) : (
+          <HeartOutline className="size-5 hover:fill-black" />
+        )}
+      </div>
+      <div
+        onClick={() => navigate(`/detail/${detail.bidId}`)}
+        className="w-full h-[150px] flex flex-col overflow-hidden"
+      >
         <div
           src={logo}
           className="h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500 relotive z-10"
@@ -21,19 +60,17 @@ export default function ListCard() {
             backgroundImage: `url(${logo})`,
           }}
         />
+        {detail?.imageUrls[0]}
       </div>
       <div className="py-2 px-2">
         <div className="opacity-50">username</div>
-        <div className="text-[20px] my-1">제 맥북 사세요~</div>
-        <div className="text-[13px] flex justify-between opacity-50">
+        <div className="text-[20px] my-1">{detail?.itemName}</div>
+        <div className="text-[13px] flex justify-between opacity-50 pb-2">
           <span className="font-bold">시작가</span>
-          <span>15,000</span>
-        </div>
-        <div className="opacity-50 text-[13px] py-2">
-          간략한 소개 적었던 자리 와라라랄라라ㅏ라라ㅏㄹㄹ
+          <span>₩{detail?.startPrice}</span>
         </div>
         <hr />
-        <div className="text-[13px] py-2 opacity-50">실시간 경매</div>
+        <div className="opacity-50 text-[13px] py-2">{detail?.itemIntro}</div>
       </div>
     </div>
   );
