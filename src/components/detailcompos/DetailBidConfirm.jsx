@@ -57,7 +57,7 @@ const DetailBidConfirm = ({ startPrice, setAgreeClickFunc }) => {
                 </div>
                 <div className='h-40 overflow-y-scroll'>
                     {isTotalBid ? totalList.map((item, index) =>
-                        <div className='py-2 border-b border-borderColor'>
+                        <div key={index} className='py-2 border-b border-borderColor'>
                             <p className='font-thin text-xs'>
                                 {formatDateTime(item.date)}
                             </p>
@@ -101,8 +101,8 @@ const DetailBidConfirm = ({ startPrice, setAgreeClickFunc }) => {
                     <div tabIndex={0} role="button" className="border border-borderColor p-1 relative">
                         {bidMoney}
                         <p className='absolute right-1 top-1 '>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                             </svg>
 
                         </p>
