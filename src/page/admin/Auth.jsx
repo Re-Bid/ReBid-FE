@@ -13,7 +13,7 @@ export default function Auth() {
     }
   }
   return (
-    <div className="flex flex-col justify-center items-center h-screen space-y-10 w-screen">
+    <div className="flex flex-col justify-center items-center space-y-10 mt-40">
       <div className="flex flex-col items-center">
         <img src={Logo} className="w-80 bg-cover" />
         <div className="font-gmarket text-6xl">Re:Bid</div>

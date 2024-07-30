@@ -1,4 +1,4 @@
-import DetailContainer from "../../components/DetailContainer";
+import DetailContainer from "../../components/detailcompos/DetailContainer";
 
 export default function AdminDetail() {
   return <div>
