@@ -17,7 +17,7 @@ export default function ItemList() {
     } else if (category === "wallet") {
       setName("지갑");
     } else if (category === "else") {
-      setName("기타");
+      setName("etc");
     } else {
       setName("");
     }
@@ -28,8 +28,8 @@ export default function ItemList() {
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   ];
   return (
-    <div className="flex justify-center items-center">
-      <div className="self-start font-bold text-3xl pt-10 pr-5">{name}</div>
+    <div className="flex flex-col justify-center items-center">
+      <div className="self-start font-bold text-3xl pt-10 px-10">{name}</div>
       <div className="grid grid-cols-4">
         {arr.map((e, i) => {
           return (
