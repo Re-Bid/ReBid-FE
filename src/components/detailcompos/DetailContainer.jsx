@@ -10,6 +10,8 @@ import DetailBidConfirm from "./DetailBidConfirm";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { bidPriceState } from "../../atom";
+import TimeCountDown from "../TimeCountDown"
+import axios from "axios";
 
 
 export function formatDateTime(targetDateString) {
@@ -38,43 +40,43 @@ const DetailContainer = ({ bidId, time, productName, startPrice, nowHighPrice, i
     const navigate = useNavigate()
 
 
+    const heardClickFunc = () => {
 
+        axios({
+            method: "post",
+            url: `${process.env.REACT_APP_BASE_URL}/bids/${bidId}/heart?bidId=${bidId}`,
+            headers: {
+                Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MiwiaWF0IjoxNzIyMzY2MDA5LCJleHAiOjE3MjIzODQwMDl9.8DBuDgU1Jfzb7Oda4IFistbFjt_FVoa8WkOzwO0i9AE"}`,
+            },
+        })
+            .then((r) => {
+                console.log(r)
+                setHeartClick(prev => !prev)
+            })
+            .catch((e) => console.log(e));
 
-    function getTimeRemaining(targetDateString) {
-        const targetDate = new Date(targetDateString);
-        const currentTime = new Date();
-
-        const timeDifference = targetDate - currentTime;
-
-        const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-        const hoursRemaining = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutesRemaining = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-
-        return `${daysRemaining}일 ${hoursRemaining}시간 ${minutesRemaining}분`;
     }
 
 
 
     return (
         <div className="flex-1 ">
-            {bidType === "RESERVATION" ?
-                <div className="text-end pb-3">
-                    <div>
-                        남은 시간
-                    </div>
-                    <div className="font-bold">
-                        {getTimeRemaining(time)}
-                    </div>
-                </div> : null}
+            <div className="text-end pb-3">
+
+                <div className="text-end">
+                    <p>남는 시간</p>
+                    {isAdmin ? null : <TimeCountDown date={time} />}
+                </div>
+            </div>
 
             <div className="flex justify-between items-center">
                 <div className="text-3xl">{productName}</div>
                 {heartClick ?
                     <SolidHeartIcon
-                        onClick={() => { setHeartClick(prev => !prev) }}
+                        onClick={() => heardClickFunc()}
                         className=" size-6 cursor-pointer  bg-white rounded-full" /> :
                     <OutlineHeartIcon
-                        onClick={() => { setHeartClick(prev => !prev) }}
+                        onClick={() => heardClickFunc()}
                         className=" size-6 cursor-pointer  bg-white rounded-full" />}
             </div>
             <div className="whitespace-pre-line py-3">
@@ -92,19 +94,18 @@ const DetailContainer = ({ bidId, time, productName, startPrice, nowHighPrice, i
                     :
                     isAdmin ? null :
 
-                        bidType === "RESERVATION" ?
-                            <Fragment>
-                                <div>현재 최고 응찰가</div>
-                                <div className="text-warningColor flex items-center space-x-2">
-                                    <div>{nowHighPrice}</div>
-                                    <ArrowPathIcon className={`size-6 cursor-pointer ${loading ? "animate-spin" : ""}`} onClick={() => {
-                                        setLoading(true)
-                                        setTimeout(() => {
-                                            setLoading(false);
-                                        }, 1000);
-                                    }} />
-                                </div>
-                            </Fragment> : null
+                        <Fragment>
+                            <div>현재 최고 응찰가</div>
+                            <div className="text-warningColor flex items-center space-x-2">
+                                <div>{nowHighPrice}</div>
+                                <ArrowPathIcon className={`size-6 cursor-pointer ${loading ? "animate-spin" : ""}`} onClick={() => {
+                                    setLoading(true)
+                                    setTimeout(() => {
+                                        setLoading(false);
+                                    }, 1000);
+                                }} />
+                            </div>
+                        </Fragment>
                 }
 
             </div>
@@ -124,12 +125,12 @@ const DetailContainer = ({ bidId, time, productName, startPrice, nowHighPrice, i
                     </Fragment>
                     :
                     <Fragment>
-                        <div className="bg-bgColor p-3 rounded-md text-center">
+                        <div className="bg-bgColor p-3 rounded-md text-center ">
                             {isSell ? "🎊축하합니다! 낙찰되셨습니다!🎊" : <Fragment>
 
-                                {bidType === "RESERVATION" ? "마감시간 :" : "경매시간 : "}
+                                마감시간 :
 
-                                <span className="text-warningColor">
+                                <span className="text-warningColor pl-1">
                                     {formatDateTime(time)}</span>
                             </Fragment>}
 
@@ -147,7 +148,7 @@ const DetailContainer = ({ bidId, time, productName, startPrice, nowHighPrice, i
                                 <DetailModal
                                     title={"응찰 내역"}
                                     child={
-                                        < DetailBidConfirm startPrice={startPrice} nowHighPrice={nowHighPrice} remainingTime={getTimeRemaining(time)} setBidPrice={setBidPrice} bidId={bidId} />}
+                                        < DetailBidConfirm startPrice={startPrice} nowHighPrice={nowHighPrice} remainingTime={<TimeCountDown date={time} />} setBidPrice={setBidPrice} bidId={bidId} />}
                                     id={'응찰하기'} />
 
 

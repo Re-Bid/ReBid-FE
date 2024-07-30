@@ -1,6 +1,7 @@
 import { CameraIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Sell() {
   const [images, setImages] = useState([]);
@@ -12,6 +13,8 @@ export default function Sell() {
   const [type, setType] = useState("realTime");
   const [tag, setTag] = useState([]);
   const [convertUrl, setConvertedUrl] = useState([]);
+
+  const navigate = useNavigate()
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -43,7 +46,12 @@ export default function Sell() {
             "Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwiaWF0IjoxNzIyMzU4NTAxLCJleHAiOjE3MjIzNzY1MDF9.2KMjJrFfdUpC2xVbfVB4utE6n6mqf8V3cb3aqr5KEnE",
         },
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res)
+        alert("등록 되었습니다.")
+        navigate("/")
+
+      })
       .catch((e) => console.log(e));
   };
 

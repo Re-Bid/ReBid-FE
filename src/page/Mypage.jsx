@@ -52,7 +52,7 @@ export default function Mypage() {
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_BASE_URL}/members/myPage`, {
       headers: {
-        'Authorization': `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MjYsImlhdCI6MTcyMjM0NTE4OCwiZXhwIjoxNzIyMzYzMTg4fQ.HXrg7f2DLVqLfd1BPSvCcRqbvyiaKtAmmYE0HNGHEWU"}`
+        'Authorization': `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwiaWF0IjoxNzIyMzc0MTY3LCJleHAiOjE3MjIzOTIxNjd9.rT_apRgdCesR_5gBII_JmkqKoER9L7ELpAA5U0-JRN8"}`
       }
     }).then(res => {
       console.log(res)
@@ -96,7 +96,7 @@ export default function Mypage() {
                 <div className="flex flex-col items-center">
                   <div className="font-thin">입찰중</div>
                   <div>
-                    {data.orders.filter(item => item.status === BID_STATUS.ONGOING_BID).length}
+                    {data.orders.filter(item => item.status === BID_STATUS.ONGOING_BID || item.bidStatus === "입찰 중").length}
                   </div>
                 </div>
 
@@ -129,20 +129,20 @@ export default function Mypage() {
 
                 <div className="flex flex-col items-center">
                   <div className="font-thin">입찰중</div>
-                  <div>{data.sales.filter(item => item.status === BID_STATUS.ONGOING_BID).length}</div>
+                  <div>{data.sales.filter(item => item.status === BID_STATUS.ONGOING_BID || item.bidStatus === "입찰 중").length}</div>
                 </div>
 
 
                 <div className="w-0 h-full border-[1px] border-borderColor opacity-40" />
                 <div className="flex flex-col items-center">
                   <div className="font-thin">승인 거부</div>
-                  <div className=" text-warningColor">{data.sales.filter(item => item.status === BID_STATUS.REJECT_CONFIRM).length}</div>
+                  <div className=" text-warningColor">{data.sales.filter(item => item.status === BID_STATUS.REJECT_CONFIRM || item.bidStatus === "승인 거부").length}</div>
                 </div>
                 <div className="w-0 h-full border-[1px] border-borderColor opacity-40" />
 
                 <div className="flex flex-col items-center">
                   <div className="font-thin">완료</div>
-                  <div>{data.sales.filter(item => item.status === BID_STATUS.COMPLETE_BID).length}</div>
+                  <div>{data.sales.filter(item => item.status === BID_STATUS.COMPLETE_BID || item.bidStatus === "완료").length}</div>
                 </div>
               </div>
             </div>
