@@ -37,7 +37,7 @@ const Banner = ({ bid }) => {
           </div>
         </div>
         <div className="bg-neutral-300">
-          {banner.imagesUrls ? banner.imageUrls[0] : <div>no Data</div>}
+          {banner.imageUrls ? banner.imageUrls[0] : <div>no Data</div>}
         </div>
       </div>
     </div>

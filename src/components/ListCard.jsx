@@ -57,10 +57,9 @@ export default function ListCard({ ...props }) {
           src={logo}
           className="h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500 relotive z-10"
           style={{
-            backgroundImage: `url(${logo})`,
+            backgroundImage: `url(${detail?.imageUrls[0]})`,
           }}
         />
-        {detail?.imageUrls[0]}
       </div>
       <div className="py-2 px-2">
         <div className="opacity-50">username</div>

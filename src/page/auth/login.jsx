@@ -5,35 +5,50 @@ import { useRecoilState } from "recoil";
 import { loginState } from "../../atom";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { useForm } from "react-hook-form";
+import Button from "../../components/Button";
 
 export default function Login() {
-  const [login, setLogin] = useRecoilState(loginState);
-  const [cookie, setCookie, removeCookie] = useCookies(["userToken"]);
-  if (cookie) {
-    console.log(cookie);
-  }
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+  };
   return (
     <Fragment>
-      <div className="flex flex-col justify-center items-center mt-60 mb-40 space-y-24">
-        <div className="text-center space-y-4 relative">
-          <img src={Logo} className="absolute opacity-10 -top-56 z-0" />
+      <div className="flex flex-col items-center justify-center py-24">
+        <div className="text-center space-y-4 relative mb-10">
           <div className="font-gmarket text-7xl">Re:Bid</div>
           <div className="font-thin">
-            저희는 리싸이클링 제품 경매 판매 사이트입니다.
-            <br />
-            환경을 생각하고, 자원을 재활용하는 특별한 경매를 통해 더 나은 미래를
-            만들어가고 있습니다.
-            <br />
-            로그인을 통해 여러분도 동참해 주세요!
-            <br />
+            당신에게 <strong>유일</strong>함을 선사합니다.
           </div>
         </div>
-        <Link
-          to={`${process.env.REACT_APP_BASE_URL}/oauth2/authorization/naver`}
-          className="btn btn-lg bg-white border-none p-0 z-10 relative"
+
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-[500px] flex flex-col gap-3"
         >
-          <img src={Naver} className="w-full h-full" />
-        </Link>
+          <div className="flex flex-col gap-2">
+            <div>이메일</div>
+            <input
+              {...register("email")}
+              type="email"
+              name="email"
+              className="inputText"
+              placeholder="이메일을 입력해주세요."
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <div>비밀번호</div>
+            <input
+              {...register("password")}
+              type="password"
+              name="password"
+              className="inputText"
+              placeholder="비밀번호를 입력해주세요."
+            />
+          </div>
+          <Button text="로그인" isGray={false} />
+        </form>
       </div>
     </Fragment>
   );

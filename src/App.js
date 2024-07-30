@@ -18,6 +18,7 @@ import ItemDetailSell from "./page/ItemDetailSell";
 import Loading from "./page/Loading";
 import MaterialBoard from "./page/board/MaterialBoard";
 import MaterialBoardDetail from "./page/board/MaterialBoardDetail";
+import SignUp from "./components/auth/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -44,7 +45,8 @@ const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/login/term", element: <Term /> },
       { path: "/materialBoard", element: <MaterialBoard /> },
-      { path: "/materialBoard/:id", element: <MaterialBoardDetail /> }
+      { path: "/materialBoard/:id", element: <MaterialBoardDetail /> },
+      { path: "/signup", element: <SignUp /> },
     ],
   },
   { path: "/test", element: <Test /> },
