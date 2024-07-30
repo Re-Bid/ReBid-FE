@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ListCard() {
   const navigate = useNavigate();
-  const itemId = 1;
+  const itemId = 2;
   return (
     <div
       onClick={() => navigate(`/detail/${itemId}`)}

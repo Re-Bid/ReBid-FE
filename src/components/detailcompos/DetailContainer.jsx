@@ -27,10 +27,10 @@ export function formatDateTime(targetDateString) {
 }
 
 
-const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bidType, isAdmin, isSell }) => {
+const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bidType, isAdmin, isSell, isHeart }) => {
 
     const [loading, setLoading] = useState(false)
-    const [heartClick, setHeartClick] = useState(false)
+    const [heartClick, setHeartClick] = useState(isHeart)
     const [agreeClick, setAgreeClick] = useState(false)
 
     const [bidPrice, setBidPrice] = useRecoilState(bidPriceState)
@@ -57,7 +57,7 @@ const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bi
 
     return (
         <div className="flex-1 ">
-            {bidType === "기간 경매" ?
+            {bidType === "RESERVATION" ?
                 <div className="text-end pb-3">
                     <div>
                         남은 시간
@@ -95,7 +95,7 @@ const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bi
                         <div>{bidType}</div>
                     </Fragment> :
 
-                        bidType === "기간 경매" ?
+                        bidType === "RESERVATION" ?
                             <Fragment>
                                 <div>현재 최고 응찰가</div>
                                 <div className="text-warningColor flex items-center space-x-2">
@@ -130,7 +130,7 @@ const DetailContainer = ({ time, productName, startPrice, nowHighPrice, info, bi
                         <div className="bg-bgColor p-3 rounded-md text-center">
                             {isSell ? "🎊축하합니다! 낙찰되셨습니다!🎊" : <Fragment>
 
-                                {bidType === "기간 경매" ? "마감시간 :" : "경매시간 : "}
+                                {bidType === "RESERVATION" ? "마감시간 :" : "경매시간 : "}
 
                                 <span className="text-warningColor">
                                     {formatDateTime(time)}</span>
