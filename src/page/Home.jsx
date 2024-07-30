@@ -13,7 +13,6 @@ import "swiper/css/pagination";
 export default function Home() {
   const [data, setData] = useState([]);
   const [endTod, setEndTod] = useState([]);
-  const [realTime, setRealTime] = useState([]);
 
   useEffect(() => {
     axios
@@ -28,13 +27,6 @@ export default function Home() {
       .get(`${process.env.REACT_APP_BASE_URL}/bids/imminent`)
       .then((res) => {
         setEndTod(res.data.data.bids);
-      })
-      .catch((e) => console.log(e));
-
-    axios
-      .get(`${process.env.REACT_APP_BASE_URL}/bids/real-time`)
-      .then((res) => {
-        setRealTime(res.data.data.bids);
       })
       .catch((e) => console.log(e));
   }, []);
@@ -52,11 +44,15 @@ export default function Home() {
             modules={[Navigation]}
             className="overflow-visible"
           >
-            {realTime.length !== 0 ? (
-              realTime.map((e, el) => {
+            {data.length !== 0 ? (
+              data.map((e, el) => {
                 return (
                   <SwiperSlide key={el}>
-                    <HomePhoto image={e.imageUrl} name={e.itemName} />
+                    <HomePhoto
+                      image={e.imageUrl}
+                      name={e.itemName}
+                      bidId={e.bidId}
+                    />
                   </SwiperSlide>
                 );
               })
@@ -81,32 +77,11 @@ export default function Home() {
               endTod.map((e, el) => {
                 return (
                   <SwiperSlide key={el}>
-                    <HomePhoto name={e.itemName} image={e.imageUrl} />
-                  </SwiperSlide>
-                );
-              })
-            ) : (
-              <div>No Data</div>
-            )}
-          </Swiper>
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-5 py-5">
-        <div className="text-2xl px-2">모든 경매</div>
-        <div className="w-[850px] overflow-visible">
-          <Swiper
-            spaceBetween={0}
-            slidesPerView={4}
-            navigation={true}
-            modules={[Navigation]}
-            className="overflow-visible"
-          >
-            {data.length !== 0 ? (
-              data.map((e, el) => {
-                return (
-                  <SwiperSlide key={el}>
-                    <HomePhoto image={e.imageUrl} name={e.itemName} />
+                    <HomePhoto
+                      name={e.itemName}
+                      image={e.imageUrl}
+                      bidId={e.bidId}
+                    />
                   </SwiperSlide>
                 );
               })

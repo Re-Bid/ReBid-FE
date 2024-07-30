@@ -20,7 +20,7 @@ export default function Navigation() {
   return (
     <div className="font-notoSans bg-white">
       <div className="flex gap-6 self-end justify-end pt-3 text-sm *:nav">
-        <div onClick={() => navigate("/login")}>회원가입</div>
+        <div onClick={() => navigate("/signup")}>회원가입</div>
         <div onClick={() => navigate("/login")}>로그인</div>
         <div onClick={() => navigate("/likelists")}>찜한 상품</div>
         <div onClick={() => navigate("/mypage")}>마이페이지</div>
