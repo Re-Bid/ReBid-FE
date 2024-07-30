@@ -17,10 +17,10 @@ export default function LikeLists() {
     <div className="flex flex-col justify-center items-center">
       <div className="self-start font-bold text-3xl pt-10 px-10 pb-3">찜ෆ</div>
       <div className="grid grid-cols-4">
-        {data.map((item, i) => {
+        {data?.map((item, i) => {
           return (
             <div className="mb-10 mx-2" key={i}>
-              <ListCard item={item} />
+              <ListCard {...item} />
             </div>
           );
         })}
