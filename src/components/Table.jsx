@@ -21,7 +21,7 @@ const Table = ({ rows, list }) => {
                 }`}
               onClick={() => {
                 if (item.status !== BID_STATUS.REJECT_CONFIRM || item.completeStatus !== BID_STATUS.REJECT_CONFIRM) {
-                  navigate(`${item.bidId}`)
+                  navigate(`/detail/${item.bidId}`)
                 }
 
               }
@@ -29,15 +29,15 @@ const Table = ({ rows, list }) => {
             >
               <th className="">
                 <img
-                  src={item.imageUrl}
+                  src={`${process.env.REACT_APP_BASE_URL}/${item.imageUrl}`}
                   className="bg-bgColor w-24 h-24 rounded-lg"
                 />
               </th>
               <th>{item.itemName}</th>
               {item.time ? <th>{item.time}</th> : null}
-              {item.startPrice ? <th>{item.startPrice}</th> : null}
+              {item.startPrice ? <th>{item.startPrice}</th> : <th>-</th>}
               <th
-                className={`${item.status === BID_STATUS.REJECT_CONFIRM || item.completeStatus !== BID_STATUS.REJECT_CONFIRM ? "text-warningColor" : ""
+                className={`${item.status === BID_STATUS.REJECT_CONFIRM || item.completeStatus === BID_STATUS.REJECT_CONFIRM ? "text-warningColor" : "text-black"
                   }`}
               >
                 {item.bidStatus || item.completeStatus}
