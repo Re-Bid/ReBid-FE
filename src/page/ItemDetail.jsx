@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DetailContainer from "../components/detailcompos/DetailContainer";
 import axios from "axios";
+import ChatBot from "../components/ChatBot";
 
 
 export default function ItemDetail() {
@@ -70,6 +71,7 @@ export default function ItemDetail() {
           </div>
 
         </div>}
+      <ChatBot />
     </div>
   );
 }
