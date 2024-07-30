@@ -90,7 +90,7 @@ const DetailBidConfirm = ({ startPrice, remainingTime, nowHighPrice }) => {
                         <p className='text-xs font-thin'>
                             남은 시간
                         </p>
-                        <p className='font-bold'>
+                        <p className=''>
                             {remainingTime}
                         </p>
                     </div>
