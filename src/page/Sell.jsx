@@ -128,7 +128,7 @@ export default function Sell() {
             </label>
           </fieldset>
 
-          <div>경매 유형</div>
+          <div>상품 유형</div>
           <fieldset className="flex gap-4 items-center">
             <label htmlFor="bag" className="flex items-center gap-1">
               <input
