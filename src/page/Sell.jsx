@@ -1,5 +1,6 @@
 import { CameraIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import Button from "../components/Button";
 
 export default function Sell() {
   const [images, setImages] = useState([]);
@@ -37,18 +38,20 @@ export default function Sell() {
   };
 
   const onFileUpload = (e) => {
-    if (images.length < 5) {
-      let reader = new FileReader();
-      if (e.target.files[0]) {
-        reader.readAsDataURL(e.target.files[0]);
+    if (images.length + e.target.files.length <= 5) {
+      for (let i = 0; i < e.target.files.length; i++) {
+        let reader = new FileReader();
+        if (e.target.files[i]) {
+          reader.readAsDataURL(e.target.files[i]);
+        }
+        reader.onloadend = () => {
+          const resultImage = reader.result;
+          setImages((prev) => [...prev, resultImage]);
+        };
+        setImageCnt((prev) => prev + 1);
       }
-      reader.onloadend = () => {
-        const resultImage = reader.result;
-        setImages((prev) => [...prev, resultImage]);
-      };
-      setImageCnt((prev) => prev + 1);
     } else {
-      alert("No more photos");
+      alert("사진은 최대 5개까지 입력 가능합니다.");
     }
   };
 
@@ -64,9 +67,23 @@ export default function Sell() {
         className="flex flex-col items-center *:w-[1000px]"
       >
         <div className="grid grid-cols-[2fr_5fr] py-5 border-borderColor *:my-3">
-          <div>
-            상품 이미지
-            <span className="text-neutral-300 text-[13px]">({imageCnt}/5)</span>
+          <div className="flex flex-col">
+            <div>
+              상품 이미지
+              <span className="text-neutral-300 text-[13px]">
+                ({imageCnt}/5)
+              </span>
+            </div>
+            <input
+              onChange={onFileUpload}
+              type="file"
+              name="photo"
+              id="photo"
+              className="opacity-0"
+              accept="image/*"
+              required
+              multiple
+            />
           </div>
           <div className="flex gap-5">
             <label
@@ -85,21 +102,13 @@ export default function Sell() {
               />
             ))}
           </div>
-          <input
-            onChange={onFileUpload}
-            type="file"
-            name="photo"
-            id="photo"
-            className="hidden"
-            accept="image/*"
-            required
-          />
 
           <div>상품명</div>
           <input
             type="text"
             name="name"
             className="inputText"
+            required
             placeholder="상품명을 입력해주세요"
           />
 
@@ -111,7 +120,7 @@ export default function Sell() {
                 name="type"
                 id="realTime"
                 className="checkbox"
-                checked
+                defaultChecked
                 readOnly
               />
               실시간 경매
@@ -132,46 +141,52 @@ export default function Sell() {
           <fieldset className="flex gap-4 items-center">
             <label htmlFor="bag" className="flex items-center gap-1">
               <input
-                type="checkbox"
+                type="radio"
                 name="item"
                 id="bag"
                 className="checkbox"
+                defaultChecked
+                readOnly
               />
               가방
             </label>
             <label htmlFor="keyring" className="flex items-center gap-1">
               <input
-                type="checkbox"
+                type="radio"
                 name="item"
                 id="keyring"
                 className="checkbox"
+                readOnly
               />
               키링
             </label>
             <label htmlFor="pouch" className="flex items-center gap-1">
               <input
-                type="checkbox"
+                type="radio"
                 name="item"
                 id="pouch"
                 className="checkbox"
+                readOnly
               />
               파우치
             </label>
             <label htmlFor="wallet" className="flex items-center gap-1">
               <input
-                type="checkbox"
+                type="radio"
                 name="item"
                 id="wallet"
                 className="checkbox"
+                readOnly
               />
               지갑
             </label>
-            <label htmlFor="else" className="flex items-center gap-1">
+            <label htmlFor="etc" className="flex items-center gap-1">
               <input
-                type="checkbox"
+                type="radio"
                 name="item"
-                id="else"
+                id="etc"
                 className="checkbox"
+                readOnly
               />
               etc
             </label>
@@ -205,7 +220,11 @@ export default function Sell() {
           />
         </div>
 
-        <input type="submit" value="제품 등록 신청하기" className="btn" />
+        <input
+          type="submit"
+          value="제품 등록 신청하기"
+          className="btn bg-black text-white"
+        />
       </form>
     </div>
   );
