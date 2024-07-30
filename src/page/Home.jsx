@@ -6,9 +6,21 @@ import "../style/swiper.css";
 import { Navigation } from "swiper/modules";
 
 import "swiper/css/pagination";
+import axios from "axios";
+import { useEffect } from "react";
 
 export default function Home() {
-  const auctionArray = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  const auctionArray = [
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+  ];
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}/bids`)
+      .then((res) => console.log(res))
+      .catch((e) => console.log(e));
+  }, []);
+
   return (
     <div className="flex flex-col items-center">
       <div className="h-[350px] w-full grid grid-cols-2">

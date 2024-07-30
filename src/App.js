@@ -15,6 +15,7 @@ import AdminDetail from "./page/admin/AdminDetail";
 import AdminLayout from "./AdminLayout";
 import Test from "./test";
 import ItemDetailSell from "./page/ItemDetailSell";
+import Loading from "./page/Loading";
 import MaterialBoard from "./page/board/MaterialBoard";
 import MaterialBoardDetail from "./page/board/MaterialBoardDetail";
 
@@ -60,6 +61,7 @@ const router = createBrowserRouter([
       { path: "list/:id", element: <AdminDetail /> },
     ],
   },
+  { path: "/loading", element: <Loading /> },
 ]);
 function App() {
   return (
