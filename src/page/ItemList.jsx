@@ -29,7 +29,6 @@ export default function ItemList() {
         }
       )
       .then((res) => {
-        console.log("여긴 itemList", res);
         setItemLists(res.data.data.bids);
       })
       .catch((err) => console.log(err));
@@ -37,16 +36,22 @@ export default function ItemList() {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="self-start font-bold text-3xl pt-10 px-10">
-        {CategoryEnum[category].label}
-      </div>
-      <div className="grid grid-cols-4">
-        {itemLists?.map((e, i) => (
-          <div className="my-10 mx-2" key={i}>
-            <ListCard {...e} />
+      {cookie.accessToken ? (
+        <>
+          <div className="self-start font-bold text-3xl pt-10 px-10">
+            {CategoryEnum[category].label}
           </div>
-        ))}
-      </div>
+          <div className="grid grid-cols-4">
+            {itemLists?.map((e, i) => (
+              <div className="my-10 mx-2" key={i}>
+                <ListCard {...e} />
+              </div>
+            ))}
+          </div>
+        </>
+      ) : (
+        <div>로그인이 필요해요!!</div>
+      )}
     </div>
   );
 }
