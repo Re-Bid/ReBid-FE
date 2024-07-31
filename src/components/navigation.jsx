@@ -13,7 +13,7 @@ export default function Navigation() {
 
   useEffect(() => {
     if (!category) {
-      setNavState("");
+      setNavState("/");
     } else {
       setNavState(category);
     }
@@ -33,7 +33,7 @@ export default function Navigation() {
       <div className="flex items-center gap-10">
         <div
           className="flex justify-between items-center cursor-pointer"
-          onClick={() => navigate("/about")}
+          onClick={() => navigate("/")}
         >
           <img src={logo} alt="logo" className="size-16" />
           <div className="text-[40px] font-gmarket">Re:Bid</div>
@@ -41,8 +41,8 @@ export default function Navigation() {
 
         <div className="flex items-center gap-5 *:nav">
           <div
-            className={navState === "" ? "font-bold" : "null"}
-            onClick={() => navigate("")}
+            className={navState === "all" ? "font-bold" : "null"}
+            onClick={() => navigate("/all")}
           >
             전체
           </div>

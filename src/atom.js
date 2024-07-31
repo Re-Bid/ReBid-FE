@@ -7,7 +7,7 @@ export const loginState = atom({
 
 export const nowNav = atom({
   key: "navState",
-  default: "",
+  default: "all",
 });
 
 export const bidPriceState = atom({
@@ -15,8 +15,7 @@ export const bidPriceState = atom({
   default: 0,
 });
 
-
 export const adminState = atom({
   key: "adminState",
-  default: false
-})
+  default: false,
+});
