@@ -28,14 +28,17 @@ const comments = [
 
 const MaterialBoardDetail = () => {
   const { register, handleSubmit } = useForm();
-  const { id } = useParams()
-  const [data, setData] = useState()
-  const [cookie] = useCookies()
+  const { id } = useParams();
+  const [data, setData] = useState();
+  const [cookie] = useCookies();
 
   const onValid = (data) => {
-    axios.get(`${process.env.REACT_APP_BASE_URL}/material/${id}`).then(res => {
-      setData(res.data.data)
-    }).catch(err => console.log(err))
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}/material/${id}`)
+      .then((res) => {
+        setData(res.data.data);
+      })
+      .catch((err) => console.log(err));
     console.log(data);
   };
   return (
