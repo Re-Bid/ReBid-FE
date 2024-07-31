@@ -47,7 +47,7 @@ const MaterialBoard = () => {
                 <tr onClick={() => navigate(`${index + 1}`)} key={index}>
                   <th>{index + 1}</th>
                   <td>{`${item.title}`}</td>
-                  <td>{item.nickName}</td>
+                  <td>{item.nickname}</td>
                   <td>{item.createdAt}</td>
                 </tr>
               ))}
