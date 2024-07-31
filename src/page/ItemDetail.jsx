@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import DetailContainer from "../components/detailcompos/DetailContainer";
 import axios from "axios";
 import ChatBot from "../components/ChatBot";
+import { useCookies } from "react-cookie";
+import ListCard from "../components/ListCard";
 
 export default function ItemDetail() {
   const { id } = useParams();
@@ -10,6 +12,9 @@ export default function ItemDetail() {
   const [heartClick, setHeartClick] = useState(false);
   const [imgUrl, setImgUrl] = useState("");
   const [data, setData] = useState();
+  const [cookie] = useCookies()
+
+  const [aiData, setAiData] = useState([])
 
   useEffect(() => {
     axios
@@ -22,6 +27,11 @@ export default function ItemDetail() {
         setLoading(true);
       })
       .catch((err) => console.log(err));
+
+    axios.get(`${process.env.REACT_APP_BASE_URL}/bids/personalRecommend`).then(res => {
+      console.log(res)
+      setAiData(res.data.data.bids)
+    }).catch(err => console.log(err))
   }, []);
 
   return (
@@ -60,9 +70,14 @@ export default function ItemDetail() {
             </div>
           </div>
           <hr className="border-borderColor" />
-          <div className="p-10 space-y-5">
+          <div className="p-5 space-y-5">
             <div className="font-bold">제품 소개</div>
             <div className="whitespace-pre-wrap">{data?.itemDescription}</div>
+          </div>
+          <hr className="border-borderColor" />
+          <div className="p-5">
+            <div className="font-bold">추천 제품</div>
+            {aiData.map((a, i) => <ListCard {...a} />)}
           </div>
         </div>
       )}
