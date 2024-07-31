@@ -37,9 +37,7 @@ export default function ListCard({ ...props }) {
   return (
     <div className="w-[200px] border-2 rounded-md border-borderColor overflow-hidden group relative hover:shadow-xl hover:scale-105 transition duration-500">
       <div
-        onClick={() => {
-          onHeartClick();
-        }}
+        onClick={onHeartClick}
         className="m-2 self-end absolute right-0 top-0 rounded-full bg-white shadow-md p-1 z-50"
       >
         {detail?.isHeart ? (
