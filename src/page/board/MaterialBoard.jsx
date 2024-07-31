@@ -44,9 +44,9 @@ const MaterialBoard = () => {
             </thead>
             <tbody>
               {data?.map((item, index) => (
-                <tr onClick={() => navigate(`${index}`)} key={index}>
+                <tr onClick={() => navigate(`${index + 1}`)} key={index}>
                   <th>{index + 1}</th>
-                  <td>{`${item.title} [${item.numCommnets}]`}</td>
+                  <td>{`${item.title}`}</td>
                   <td>{item.nickName}</td>
                   <td>{item.createdAt}</td>
                 </tr>
