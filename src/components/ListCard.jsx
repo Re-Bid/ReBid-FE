@@ -32,6 +32,7 @@ export default function ListCard({ ...props }) {
       .get(`${process.env.REACT_APP_BASE_URL}/bids/${props.bidId}`)
       .then((res) => {
         setDetail(res.data.data);
+        setIsLike(res.data.data.isHeart);
       });
   }, [isLike]);
   return (
@@ -40,7 +41,7 @@ export default function ListCard({ ...props }) {
         onClick={onHeartClick}
         className="m-2 self-end absolute right-0 top-0 rounded-full bg-white shadow-md p-1 z-50"
       >
-        {detail?.isHeart ? (
+        {isLike ? (
           <HeartIcon className="size-5" />
         ) : (
           <HeartOutline className="size-5 hover:fill-black" />
