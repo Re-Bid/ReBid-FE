@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { nowNav } from "../atom.js";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const CategoryEnum = Object.freeze({
   bag: { label: "가방", value: "BAG" },
@@ -18,11 +19,17 @@ export default function ItemList() {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [itemLists, setItemLists] = useState([]);
+  const [cookie] = useCookies();
 
   useEffect(() => {
     axios
       .get(
-        `${process.env.REACT_APP_BASE_URL}/bids/category?name=${CategoryEnum[category].value}`
+        `${process.env.REACT_APP_BASE_URL}/bids/category?name=${CategoryEnum[category].value}`,
+        {
+          headers: {
+            Authorization: `Bearer ${cookie.accessToken}`,
+          },
+        }
       )
       .then((res) => {
         console.log("여긴 itemList", res);

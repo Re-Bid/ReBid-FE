@@ -25,7 +25,9 @@ export default function HomePhoto({ image, name, bidId }) {
     await axios({
       method: "post",
       url: `${process.env.REACT_APP_BASE_URL}/bids/${bidId}/heart?bidId=${bidId}`,
-
+      headers: {
+        Authorization: `Bearer ${cookie.accessToken}`,
+      },
     })
       .then((r) => {
         setIsLike((prev) => !prev);

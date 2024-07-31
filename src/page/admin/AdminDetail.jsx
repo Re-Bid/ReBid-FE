@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import DetailContainer from "../../components/detailcompos/DetailContainer";
 import { Fragment, useEffect, useState } from "react";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 export default function AdminDetail() {
   const { id } = useParams();
@@ -9,11 +10,13 @@ export default function AdminDetail() {
   const [imgUrl, setImgUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const [cookie] = useCookies();
+
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/admin/bids/${id}`, {
         headers: {
-          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6NywiaWF0IjoxNzIyNDQ2NTgyLCJleHAiOjE3MjI0NjQ1ODJ9.7OXdUqGJ6AKcXfNQp2B2h0KCR_JhUA3HfL45wmf-PGk"}`,
+          Authorization: `Bearer ${cookie.accessToken}`,
         },
       })
       .then((res) => {

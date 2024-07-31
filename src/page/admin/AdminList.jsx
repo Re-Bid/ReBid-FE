@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Table from "../../components/Table";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const rowWaitList = ["사진", "제품명", "시작가", "상태"];
 const rowCompleteList = ["사진", "제품명", "낙찰가", "상태"];
@@ -50,11 +51,13 @@ export default function AdminList() {
   const [pendingData, setPendingData] = useState([]);
   const [confirmData, setConfirmData] = useState([]);
 
+  const [cookie] = useCookies();
+
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/admin/bids?status=${"pending"}`, {
         headers: {
-          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6NywiaWF0IjoxNzIyNDQ2NTgyLCJleHAiOjE3MjI0NjQ1ODJ9.7OXdUqGJ6AKcXfNQp2B2h0KCR_JhUA3HfL45wmf-PGk"}`,
+          Authorization: `Bearer ${cookie.accessToken}`,
         },
       })
       .then((res) => {
@@ -66,7 +69,7 @@ export default function AdminList() {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/admin/bids?status=${"confirm"}`, {
         headers: {
-          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6NywiaWF0IjoxNzIyNDQ2NTgyLCJleHAiOjE3MjI0NjQ1ODJ9.7OXdUqGJ6AKcXfNQp2B2h0KCR_JhUA3HfL45wmf-PGk"}`,
+          Authorization: `Bearer ${cookie.accessToken}`,
         },
       })
       .then((res) => {

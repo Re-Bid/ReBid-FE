@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import Button from "../../Button";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 function DateTimeToString(date, time) {
   // 주어진 날짜와 시간을 하나의 문자열로 결합합니다.
@@ -19,6 +20,8 @@ const DetailAdminApprove = ({ bidId }) => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
 
+  const [cookie] = useCookies();
+
   const onValid = (data) => {
     const startDate = DateTimeToString(data.startDate, data.startTime);
     const endDate = DateTimeToString(data.endDate, data.endTime);
@@ -32,7 +35,7 @@ const DetailAdminApprove = ({ bidId }) => {
         },
         {
           headers: {
-            Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6NywiaWF0IjoxNzIyNDQ2NTgyLCJleHAiOjE3MjI0NjQ1ODJ9.7OXdUqGJ6AKcXfNQp2B2h0KCR_JhUA3HfL45wmf-PGk"}`,
+            Authorization: `Bearer ${cookie.accessToken}`,
           },
         }
       )
