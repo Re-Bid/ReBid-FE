@@ -6,7 +6,6 @@ import DetailModal from "../components/detailcompos/DetailModal";
 import axios from "axios";
 import { BID_STATUS } from "../components/BidType";
 
-
 const list2 = [
   {
     imgUrl: "",
@@ -46,21 +45,31 @@ const message = (
 );
 export default function Mypage() {
   const [isModal, setIsModal] = useState("");
-  const [loading, setLoading] = useState(false)
-  const [data, setData] = useState()
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState();
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BASE_URL}/members/myPage`,).then(res => {
-      setData(res.data.data)
-      setLoading(true)
-    }).catch(err => console.log(err))
-
-  }, [])
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}/members/myPage`, {
+        headers: {
+          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6NywiaWF0IjoxNzIyNDQ2NTgyLCJleHAiOjE3MjI0NjQ1ODJ9.7OXdUqGJ6AKcXfNQp2B2h0KCR_JhUA3HfL45wmf-PGk"}`,
+        },
+      })
+      .then((res) => {
+        setData(res.data.data);
+        setLoading(true);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <Fragment>
-      {loading ?
+      {loading ? (
         <div className="flex-col flex items-center gap-10 py-20">
-          <DetailModal title={"입찰 거부 사유"} child={message} id={"승인거부"} />
+          <DetailModal
+            title={"입찰 거부 사유"}
+            child={message}
+            id={"승인거부"}
+          />
 
           <div className="border-2 py-10 px-3 rounded-md flex items-center justify-between w-3/4">
             <div className="flex items-center gap-2">
@@ -91,7 +100,13 @@ export default function Mypage() {
                 <div className="flex flex-col items-center">
                   <div className="font-thin">입찰중</div>
                   <div>
-                    {data.orders.filter(item => item.status === BID_STATUS.ONGOING_BID || item.bidStatus === "입찰 중").length}
+                    {
+                      data.orders.filter(
+                        (item) =>
+                          item.status === BID_STATUS.ONGOING_BID ||
+                          item.bidStatus === "입찰 중"
+                      ).length
+                    }
                   </div>
                 </div>
 
@@ -99,7 +114,13 @@ export default function Mypage() {
 
                 <div className="flex flex-col items-center">
                   <div className="font-thin">완료</div>
-                  <div>{data.orders.filter(item => item.status === BID_STATUS.COMPLETE_BID).length}</div>
+                  <div>
+                    {
+                      data.orders.filter(
+                        (item) => item.status === BID_STATUS.COMPLETE_BID
+                      ).length
+                    }
+                  </div>
                 </div>
               </div>
             </div>
@@ -124,32 +145,55 @@ export default function Mypage() {
 
                 <div className="flex flex-col items-center">
                   <div className="font-thin">입찰중</div>
-                  <div>{data.sales.filter(item => item.status === BID_STATUS.ONGOING_BID || item.bidStatus === "입찰 중").length}</div>
+                  <div>
+                    {
+                      data.sales.filter(
+                        (item) =>
+                          item.status === BID_STATUS.ONGOING_BID ||
+                          item.bidStatus === "입찰 중"
+                      ).length
+                    }
+                  </div>
                 </div>
-
 
                 <div className="w-0 h-full border-[1px] border-borderColor opacity-40" />
                 <div className="flex flex-col items-center">
                   <div className="font-thin">승인 거부</div>
-                  <div className=" text-warningColor">{data.sales.filter(item => item.status === BID_STATUS.REJECT_CONFIRM || item.bidStatus === "승인 거부").length}</div>
+                  <div className=" text-warningColor">
+                    {
+                      data.sales.filter(
+                        (item) =>
+                          item.status === BID_STATUS.REJECT_CONFIRM ||
+                          item.bidStatus === "승인 거부"
+                      ).length
+                    }
+                  </div>
                 </div>
                 <div className="w-0 h-full border-[1px] border-borderColor opacity-40" />
 
                 <div className="flex flex-col items-center">
                   <div className="font-thin">완료</div>
-                  <div>{data.sales.filter(item => item.status === BID_STATUS.COMPLETE_BID || item.bidStatus === "완료").length}</div>
+                  <div>
+                    {
+                      data.sales.filter(
+                        (item) =>
+                          item.status === BID_STATUS.COMPLETE_BID ||
+                          item.bidStatus === "완료"
+                      ).length
+                    }
+                  </div>
                 </div>
               </div>
             </div>
             <div className="w-3/4">
-              <Tabel rows={["사진", "제품명", "입찰 시간", "상태"]} list={data.sales} />
+              <Tabel
+                rows={["사진", "제품명", "입찰 시간", "상태"]}
+                list={data.sales}
+              />
             </div>
           </div>
         </div>
-        :
-        null
-      }
+      ) : null}
     </Fragment>
-
   );
 }

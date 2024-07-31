@@ -38,7 +38,11 @@ export default function Sell() {
     };
     await authAxios
 
-      .post(`${process.env.REACT_APP_BASE_URL}/bids/sell`, sellData)
+      .post(`${process.env.REACT_APP_BASE_URL}/bids/sell`, sellData, {
+        headers: {
+          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6NywiaWF0IjoxNzIyNDQ2NTgyLCJleHAiOjE3MjI0NjQ1ODJ9.7OXdUqGJ6AKcXfNQp2B2h0KCR_JhUA3HfL45wmf-PGk"}`,
+        },
+      })
       .then((res) => {
         console.log(res);
         alert("등록 되었습니다.");

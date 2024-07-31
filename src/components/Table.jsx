@@ -1,31 +1,36 @@
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BID_STATUS } from "./BidType";
 
-const Table = ({ rows, list }) => {
-  const navigate = useNavigate()
+const Table = ({ rows, list, isAdmin }) => {
+  const navigate = useNavigate();
   return (
     <div className="overflow-x-auto ">
       <table className="table">
         <tr className="border-b border-borderColor text-borderColor">
-          {list.length === 0 ? null : rows.map((row, index) => (
-            <th key={index}>{row}</th>
-          ))}
+          {list.length === 0
+            ? null
+            : rows.map((row, index) => <th key={index}>{row}</th>)}
         </tr>
         <tbody className="">
           {list.map((item, index) => (
             <tr
               key={index}
-              className={`${index === list.length - 1 ? "" : "border-b border-borderColor "
-                }`}
+              className={`${
+                index === list.length - 1 ? "" : "border-b border-borderColor "
+              }`}
               onClick={() => {
-                if (item.status !== BID_STATUS.REJECT_CONFIRM || item.completeStatus !== BID_STATUS.REJECT_CONFIRM) {
-                  navigate(`/detail/${item.bidId}`)
+                if (
+                  item.status !== BID_STATUS.REJECT_CONFIRM ||
+                  item.completeStatus !== BID_STATUS.REJECT_CONFIRM
+                ) {
+                  if (isAdmin) {
+                    navigate(`/admin/list/${item.bidId}`);
+                  } else {
+                    navigate(`/detail/${item.bidId}`);
+                  }
                 }
-
-              }
-              }
+              }}
             >
               <th className="">
                 <img
@@ -37,8 +42,12 @@ const Table = ({ rows, list }) => {
               {item.time ? <th>{item.time}</th> : null}
               {item.startPrice ? <th>{item.startPrice}</th> : <th>-</th>}
               <th
-                className={`${item.status === BID_STATUS.REJECT_CONFIRM || item.completeStatus === BID_STATUS.REJECT_CONFIRM ? "text-warningColor" : "text-black"
-                  }`}
+                className={`${
+                  item.status === BID_STATUS.REJECT_CONFIRM ||
+                  item.completeStatus === BID_STATUS.REJECT_CONFIRM
+                    ? "text-warningColor"
+                    : "text-black"
+                }`}
               >
                 {item.bidStatus || item.completeStatus}
               </th>

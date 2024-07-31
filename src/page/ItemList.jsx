@@ -25,6 +25,7 @@ export default function ItemList() {
         `${process.env.REACT_APP_BASE_URL}/bids/category?name=${CategoryEnum[category].value}`
       )
       .then((res) => {
+        console.log("여긴 itemList", res);
         setItemLists(res.data.data.bids);
       })
       .catch((err) => console.log(err));
