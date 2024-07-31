@@ -42,7 +42,7 @@ export default function ListCard({ ...props }) {
         }}
         className="m-2 self-end absolute right-0 top-0 rounded-full bg-white shadow-md p-1 z-50"
       >
-        {detail?.isHeart ? (
+        {isLike ? (
           <HeartIcon className="size-5" />
         ) : (
           <HeartOutline className="size-5 hover:fill-black" />
@@ -61,7 +61,7 @@ export default function ListCard({ ...props }) {
         />
       </div>
       <div className="py-2 px-2">
-        <div className="opacity-50">username</div>
+        <div className="opacity-50">{detail?.memberName}</div>
         <div className="text-[20px] my-1">{detail?.itemName}</div>
         <div className="text-[13px] flex justify-between opacity-50 pb-2">
           <span className="font-bold">시작가</span>
