@@ -66,7 +66,7 @@ export default function ItemDetail() {
           </div>
         </div>
       )}
-      <ChatBot bidId={data.bidId} />
+      <ChatBot bidId={data?.bidId} />
     </div>
   );
 }

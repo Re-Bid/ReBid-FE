@@ -4,6 +4,7 @@ import { BID_STATUS } from "./BidType";
 
 const Table = ({ rows, list, isAdmin }) => {
   const navigate = useNavigate();
+  console.log(list);
   return (
     <div className="overflow-x-auto ">
       <table className="table">

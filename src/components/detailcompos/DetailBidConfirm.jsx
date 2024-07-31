@@ -1,9 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { ArrowPathIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import Button from "../Button";
 import { formatDateTime } from "./DetailContainer";
-import { useRecoilState } from "recoil";
-import { bidPriceState } from "../../atom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
@@ -15,7 +13,12 @@ const warningText = [
   "부정한 방법으로 경매에 참여할 경우, 해당 계정은 영구적으로 이용이 제한될 수 있습니다. 정직한 참여를 부탁드립니다.",
 ];
 
-const DetailBidConfirm = ({ startPrice, remainingTime, nowHighPrice }) => {
+const DetailBidConfirm = ({
+  startPrice,
+  remainingTime,
+  nowHighPrice,
+  bidId,
+}) => {
   const { id } = useParams();
   const [bidMoney, setBidMoney] = useState(nowHighPrice);
   const [loading, setLoading] = useState(false);
@@ -29,7 +32,7 @@ const DetailBidConfirm = ({ startPrice, remainingTime, nowHighPrice }) => {
     // navigate("/")
     axios
       .post(
-        `${process.env.REACT_APP_BASE_URL}/bids/${id}/buy`,
+        `${process.env.REACT_APP_BASE_URL}/bids/${bidId}/buy`,
         {
           price: bidMoney,
         },
