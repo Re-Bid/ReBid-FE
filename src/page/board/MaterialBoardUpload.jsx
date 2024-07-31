@@ -20,7 +20,29 @@ const MaterialBoardUpload = () => {
   };
 
   const onSubmit = (e) => {
-    console.log(e, convertedUrl[0]);
+    let data = {
+      imageUrl: convertedUrl,
+      title: e.title,
+      description: e.description,
+    };
+    try {
+      axios
+        .post(`${process.env.REACT_APP_BASE_URL}/material`, data, {
+          headers: {
+            Authorization: `Bearer ${cookie.accessToken}`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          alert("등록 되었습니다.");
+          navigate("/");
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const fileUrlConverter = async (data) => {
@@ -121,9 +143,9 @@ const MaterialBoardUpload = () => {
         <div className="w-full">
           <div>설명</div>
           <textarea
-            {...register("explain")}
+            {...register("description")}
             type="text"
-            name="explain"
+            name="description"
             placeholder="설명을 입력해주세요."
             className="inputText w-full resize-none h-[200px] mb-5"
           />

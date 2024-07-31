@@ -42,7 +42,7 @@ export default function ListCard({ ...props }) {
         }}
         className="m-2 self-end absolute right-0 top-0 rounded-full bg-white shadow-md p-1 z-50"
       >
-        {isLike ? (
+        {detail?.isHeart ? (
           <HeartIcon className="size-5" />
         ) : (
           <HeartOutline className="size-5 hover:fill-black" />
