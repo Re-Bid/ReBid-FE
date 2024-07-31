@@ -31,7 +31,7 @@ export default function Navigation() {
       <div className="flex items-center gap-10">
         <div
           className="flex justify-between items-center cursor-pointer"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/about")}
         >
           <img src={logo} alt="logo" className="size-16" />
           <div className="text-[40px] font-gmarket">Re:Bid</div>

@@ -21,6 +21,7 @@ import MaterialBoardDetail from "./page/board/MaterialBoardDetail";
 import SignUp from "./components/auth/SignUp";
 import MaterialBoardUpload from "./page/board/MaterialBoardUpload";
 import Notfound from "./page/Notfound";
+import All from "./page/All";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <All />,
+      },
+      {
+        path: "/about",
         element: <Home />,
       },
       {
