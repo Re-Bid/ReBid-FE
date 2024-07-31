@@ -9,6 +9,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { authAxios, noAuthAxios } from "./components/UseAxiosInterceptors";
+import { useCookies } from "react-cookie";
 
 // const formData = new FormData();
 //   // 폼에 데이터를 첨부하기 위해서는 form.append('키값(필드)', 데이터) 를 이용한다.
@@ -29,12 +31,23 @@ import { useEffect, useState } from "react";
 //   }
 
 export default () => {
+  const [cookie] = useCookies()
+
+  const onClick = () => {
+    // axios({
+    //   method: 'get',
+    //   url: `${process.env.REACT_APP_BASE_URL}/bids/1/heart`,
+    //   headers: {
+    //     Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiYXV0aG9yaXRpZXNLZXkiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiZXhwIjoxNzIyNDUyNDA5LCJpYXQiOjE3MjI0MzQ0MDl9.rtP8bL2fULrK1UZ8GHReTBtQVWzH44TmmsxUvbiOCaI"}`
+    //   }
+    // }).then(res => console.log(res)).catch(err => console.log(err))
+    noAuthAxios.get(`${process.env.REACT_APP_BASE_URL}/bids`).then(res => console.log(res)).catch(err => console.log(err))
+
+  }
+
   return (
     <div>
-      <iframe
-        className="w-screen h-screen"
-        src="https://zep.us/play/D6nnvK"
-      ></iframe>
+      <button onClick={onClick} >버튼</button>
     </div>
   );
 };

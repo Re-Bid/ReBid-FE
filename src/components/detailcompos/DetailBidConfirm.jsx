@@ -32,12 +32,7 @@ const DetailBidConfirm = ({ startPrice, remainingTime, nowHighPrice }) => {
         // navigate("/")
         axios.post(`${process.env.REACT_APP_BASE_URL}/bids/${id}/buy`, {
             price: bidMoney
-        }, {
-            headers: {
-                'Authorization': `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwiaWF0IjoxNzIyMzc0MTY3LCJleHAiOjE3MjIzOTIxNjd9.rT_apRgdCesR_5gBII_JmkqKoER9L7ELpAA5U0-JRN8"}`
-            }
         }).then(res => {
-            console.log(res)
             alert("응찰 되었습니다")
         }).catch(err => {
             console.log(err)
@@ -75,7 +70,6 @@ const DetailBidConfirm = ({ startPrice, remainingTime, nowHighPrice }) => {
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/bids/${id}/histories`).then(res => {
-            console.log(res)
             setTotalList(res.data.data.bidHistories)
         }).catch(err => console.log(err))
     }, [])

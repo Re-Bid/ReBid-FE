@@ -36,15 +36,11 @@ export default function Sell() {
       endDate: null,
     };
     await axios
-      .post(`${process.env.REACT_APP_BASE_URL}/bids/sell`, sellData, {
-        headers: {
-          Authorization: "Bearer" + cookie.accessToken,
-        },
-      })
+
+      .post(`${process.env.REACT_APP_BASE_URL}/bids/sell`, sellData,)
       .then((res) => {
-        console.log(res);
-        alert("등록 되었습니다.");
-        navigate("/");
+        alert("등록 되었습니다.")
+        navigate("/")
       })
       .catch((e) => {
         console.log(e);

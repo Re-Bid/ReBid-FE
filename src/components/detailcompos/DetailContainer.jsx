@@ -45,12 +45,9 @@ const DetailContainer = ({ bidId, time, productName, startPrice, nowHighPrice, i
         axios({
             method: "post",
             url: `${process.env.REACT_APP_BASE_URL}/bids/${bidId}/heart?bidId=${bidId}`,
-            headers: {
-                Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MiwiaWF0IjoxNzIyMzY2MDA5LCJleHAiOjE3MjIzODQwMDl9.8DBuDgU1Jfzb7Oda4IFistbFjt_FVoa8WkOzwO0i9AE"}`,
-            },
+
         })
             .then((r) => {
-                console.log(r)
                 setHeartClick(prev => !prev)
             })
             .catch((e) => console.log(e));

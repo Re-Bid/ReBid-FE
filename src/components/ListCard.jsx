@@ -4,6 +4,7 @@ import logo from "../asset/logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
 export default function ListCard({ ...props }) {
   const navigate = useNavigate();
@@ -14,9 +15,6 @@ export default function ListCard({ ...props }) {
     await axios({
       method: "post",
       url: `${process.env.REACT_APP_BASE_URL}/bids/${detail.bidId}/heart?bidId=${detail.bidId}`,
-      headers: {
-        Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MiwiaWF0IjoxNzIyMzY2MDA5LCJleHAiOjE3MjIzODQwMDl9.8DBuDgU1Jfzb7Oda4IFistbFjt_FVoa8WkOzwO0i9AE"}`,
-      },
     })
       .then((r) => {
         setIsLike((prev) => !prev);
@@ -26,11 +24,7 @@ export default function ListCard({ ...props }) {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}/bids/${props.bidId}`, {
-        headers: {
-          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MiwiaWF0IjoxNzIyMzY2MDA5LCJleHAiOjE3MjIzODQwMDl9.8DBuDgU1Jfzb7Oda4IFistbFjt_FVoa8WkOzwO0i9AE"}`,
-        },
-      })
+      .get(`${process.env.REACT_APP_BASE_URL}/bids/${props.bidId}`,)
       .then((res) => {
         setDetail(res.data.data);
       });

@@ -10,12 +10,7 @@ export default function AdminDetail() {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BASE_URL}/admin/bids/${id}`, {
-      headers: {
-        'Authorization': `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwiaWF0IjoxNzIyMzU4NTAxLCJleHAiOjE3MjIzNzY1MDF9.2KMjJrFfdUpC2xVbfVB4utE6n6mqf8V3cb3aqr5KEnE"}`
-      }
-    }).then(res => {
-      console.log(res)
+    axios.get(`${process.env.REACT_APP_BASE_URL}/admin/bids/${id}`,).then(res => {
       setData(res.data.data)
       setImgUrl(res.data.data.imageUrl[0])
       setLoading(true)

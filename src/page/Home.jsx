@@ -2,8 +2,15 @@ import { useEffect, useRef, useState } from "react";
 import Banner from "../components/home/Banner";
 import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 
+import "swiper/css";
+import "swiper/css/navigation";
+import "../style/swiper.css";
+import "swiper/css/pagination";
+import { useCookies } from "react-cookie";
+import { authAxios, noAuthAxios } from "../components/UseAxiosInterceptors"
 import home3 from "../asset/home3.png";
 import home4 from "../asset/home4.jpg";
+
 
 export default function Home() {
   const [aniOne, setAniOne] = useState(false);
@@ -14,6 +21,22 @@ export default function Home() {
   const trigger3 = useRef(null);
 
   useEffect(() => {
+    noAuthAxios
+      .get(`${process.env.REACT_APP_BASE_URL}/bids`)
+      .then((res) => {
+        setData(res.data.data.bids);
+        return res.data.data.bids[0];
+      })
+      .catch((e) => console.log(e));
+
+    // axios
+    //   .get(`${process.env.REACT_APP_BASE_URL}/bids/imminent`)
+    //   .then((res) => {
+    //     setEndTod(res.data.data.bids);
+    //   })
+    //   .catch((e) => console.log(e));
+
+  }, [cookie]);
     const observer1 = new IntersectionObserver((entries) => {
       const element = entries[0];
       if (element.isIntersecting && trigger1.current) {
