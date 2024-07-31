@@ -29,7 +29,7 @@ const SignUp = () => {
         <div className="flex flex-col items-center justify-center">
           <img src={Logo} className="w-20 h-20" />
         </div>
-        <div className="space-y-10 mb-10">
+        <div className="space-y-3 mb-10">
           <div className="">
             <div>이메일</div>
             <input
@@ -84,6 +84,15 @@ const SignUp = () => {
           </label>
         </div>
         <Button text={"가입"} isGray={false} />
+      </div>
+      <div className="font-thin">
+        이미 아이디가 있으신가요?{" "}
+        <span
+          className="font-bold cursor-pointer hover:underline-offset-4 hover:underline"
+          onClick={() => navigate("/login")}
+        >
+          로그인 하러 가기 &rarr;
+        </span>
       </div>
     </form>
   );
