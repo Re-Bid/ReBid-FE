@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import ListCard from "../components/ListCard.jsx";
 import { useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { nowNav } from "../atom.js";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 
@@ -16,8 +14,6 @@ const CategoryEnum = Object.freeze({
 
 export default function ItemList() {
   const { category } = useParams();
-  const [name, setName] = useState("");
-  const [loading, setLoading] = useState(false);
   const [itemLists, setItemLists] = useState([]);
   const [cookie] = useCookies();
 

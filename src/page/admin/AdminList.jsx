@@ -6,47 +6,6 @@ import { useCookies } from "react-cookie";
 const rowWaitList = ["사진", "제품명", "시작가", "상태"];
 const rowCompleteList = ["사진", "제품명", "낙찰가", "상태"];
 
-const waitList = [
-  {
-    id: 0,
-    imgUrl: "",
-    productName: "제품명",
-    startPrice: 20000,
-    status: "승인 대기",
-  },
-  {
-    id: 1,
-    imgUrl: "",
-    productName: "제품명",
-    startPrice: 20000,
-    status: "승인 대기",
-  },
-  {
-    id: 2,
-    imgUrl: "",
-    productName: "제품명",
-    startPrice: 20000,
-    status: "승인 대기",
-  },
-  {
-    id: 3,
-    imgUrl: "",
-    productName: "제품명",
-    startPrice: 20000,
-    status: "승인 대기",
-  },
-];
-
-const completeList = [
-  {
-    id: 0,
-    imgUrl: "",
-    productName: "제품명",
-    startPrice: 20000,
-    status: "승인 완료",
-  },
-];
-
 export default function AdminList() {
   const [pendingData, setPendingData] = useState([]);
   const [confirmData, setConfirmData] = useState([]);
@@ -77,7 +36,7 @@ export default function AdminList() {
         setConfirmData(res.data.data.bids);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [cookie.accessToken]);
   return (
     <div className="w-full  px-10 ">
       <div role="tablist" className="tabs tabs-lifted ">

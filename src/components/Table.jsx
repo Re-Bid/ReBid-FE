@@ -34,13 +34,17 @@ const Table = ({ rows, list, isAdmin }) => {
             >
               <th className="">
                 <img
-                  src={`${item.imageUrl}`}
+                  src={`${process.env.REACT_APP_BASE_URL}/${item.imageUrl}`}
                   className="bg-bgColor w-24 h-24 rounded-lg"
                 />
               </th>
               <th>{item.itemName}</th>
               {item.time ? <th>{item.time}</th> : null}
-              {item.startPrice ? <th>{item.startPrice}</th> : <th>-</th>}
+              {item.startPrice || item.bidPrice ? (
+                <th>{item.startPrice}</th>
+              ) : (
+                <th>-</th>
+              )}
               <th
                 className={`${
                   item.status === BID_STATUS.REJECT_CONFIRM ||

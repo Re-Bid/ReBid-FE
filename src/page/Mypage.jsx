@@ -1,32 +1,10 @@
 import { UserIcon } from "@heroicons/react/24/solid";
 import Tabel from "../components/Table";
-import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Fragment, useEffect, useState } from "react";
 import DetailModal from "../components/detailcompos/DetailModal";
 import axios from "axios";
 import { BID_STATUS } from "../components/BidType";
 import { useCookies } from "react-cookie";
-
-const list2 = [
-  {
-    imgUrl: "",
-    productName: "구윤찬",
-    time: "2024-07-89",
-    status: "입찰 중",
-  },
-  {
-    imgUrl: "",
-    productName: "구윤찬",
-    time: "-",
-    status: "입찰 중",
-  },
-  {
-    imgUrl: "",
-    productName: "구윤찬",
-    time: "2024-07-89",
-    status: "승인 거부",
-  },
-];
 
 const message = (
   <div className="bg-bgColor py-2 px-3">
@@ -45,7 +23,6 @@ const message = (
   </div>
 );
 export default function Mypage() {
-  const [isModal, setIsModal] = useState("");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
   const [cookie] = useCookies();

@@ -10,7 +10,7 @@ export default function Sell() {
   const [imageCnt, setImageCnt] = useState(0);
   const [convertUrl, setConvertedUrl] = useState([]);
 
-  const [cookie, setCookie] = useCookies(["user-info"]);
+  const [cookie] = useCookies(["user-info"]);
   const navigate = useNavigate();
 
   const onSubmit = async (e) => {

@@ -1,10 +1,4 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { formatDateTime } from "../detailcompos/DetailContainer";
-import bannerImg from "../../asset/homeImg.jpg";
-import himan from "../../asset/himan.png";
 import home2 from "../../asset/home2.jpg";
-import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 
 const Banner = () => {
