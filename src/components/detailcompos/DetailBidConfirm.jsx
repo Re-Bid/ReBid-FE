@@ -1,9 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { ArrowPathIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import Button from "../Button";
 import { formatDateTime } from "./DetailContainer";
-import { useRecoilState } from "recoil";
-import { bidPriceState } from "../../atom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
