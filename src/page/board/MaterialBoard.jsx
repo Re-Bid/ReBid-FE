@@ -3,16 +3,18 @@ import { formatDateTime } from "../../components/detailcompos/DetailContainer";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const MaterialBoard = () => {
   const navigate = useNavigate();
-  const [data, setData] = useState()
+  const [data, setData] = useState();
+  const [cookie] = useCookies();
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/material`)
       .then((r) => {
-        console.log(r)
-        setData(r.data.data.materials)
+        console.log(r);
+        setData(r.data.data.materials);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -42,14 +44,16 @@ const MaterialBoard = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.materials.map((item, index) => (
-                <tr onClick={() => navigate(`${index}`)} key={index}>
-                  <th>{index + 1}</th>
-                  <td>{`${item.title}`}</td>
-                  <td>{item.nickname}</td>
-                  <td>{formatDateTime(item.createdAt)}</td>
-                </tr>
-              ))}
+              {Array(10)
+                .fill(1)
+                .map((item, index) => (
+                  <tr onClick={() => navigate(`${index}`)} key={index}>
+                    <th>{index + 1}</th>
+                    <td>{`${item.title} [${item.numCommnets}]`}</td>
+                    <td>{item.nickName}</td>
+                    <td>{formatDateTime(item.date)}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

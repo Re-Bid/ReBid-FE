@@ -31,7 +31,7 @@ const MaterialBoardUpload = () => {
     };
     try {
       axios
-        .post(`${process.env.REACT_APP_BASE_URL}/material`, data, {
+        .post(`${process.env.REACT_APP_BASE_URL}/material/add`, data, {
           headers: {
             Authorization: `Bearer ${cookie.accessToken}`,
           },
