@@ -17,9 +17,8 @@ const Table = ({ rows, list, isAdmin }) => {
           {list.map((item, index) => (
             <tr
               key={index}
-              className={`${
-                index === list.length - 1 ? "" : "border-b border-borderColor "
-              }`}
+              className={`${index === list.length - 1 ? "" : "border-b border-borderColor "
+                }`}
               onClick={() => {
                 if (
                   item.status !== BID_STATUS.REJECT_CONFIRM ||
@@ -35,7 +34,7 @@ const Table = ({ rows, list, isAdmin }) => {
             >
               <th className="">
                 <img
-                  src={`${process.env.REACT_APP_BASE_URL}/${item.imageUrl}`}
+                  src={`${item.imageUrl}`}
                   className="bg-bgColor w-24 h-24 rounded-lg"
                 />
               </th>
@@ -47,12 +46,11 @@ const Table = ({ rows, list, isAdmin }) => {
                 <th>-</th>
               )}
               <th
-                className={`${
-                  item.status === BID_STATUS.REJECT_CONFIRM ||
-                  item.completeStatus === BID_STATUS.REJECT_CONFIRM
+                className={`${item.status === BID_STATUS.REJECT_CONFIRM ||
+                    item.completeStatus === BID_STATUS.REJECT_CONFIRM
                     ? "text-warningColor"
                     : "text-black"
-                }`}
+                  }`}
               >
                 {item.bidStatus || item.completeStatus}
               </th>
