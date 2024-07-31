@@ -1,9 +1,6 @@
 import { Fragment } from "react";
-import Naver from "../../asset/naver.png";
-import Logo from "../../asset/logo.png";
-import { useRecoilState } from "recoil";
-import { loginState } from "../../atom";
-import { Link, useNavigate } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import Button from "../../components/Button";
@@ -11,14 +8,16 @@ import axios from "axios";
 
 export default function Login() {
   const { register, handleSubmit } = useForm();
-  const [cookie, setCookie] = useCookies();
+  const [cookie, setCookie] = useCookies(["user-info"]);
   const navigate = useNavigate();
   const onSubmit = (data) => {
     axios
       .post(`${process.env.REACT_APP_BASE_URL}/members/login`, data)
       .then((r) => {
-        setCookie("accessToken", r.data.data.accessToken);
-        setCookie("nickname", r.data.data.nickname);
+        setCookie("accessToken", r.data.data.accessToken, {
+          maxAge: 18000,
+        });
+        setCookie("nickname", r.data.data.nickname, { maxAge: 18000 });
         navigate("/");
       })
       .catch((e) => console.log(e));
