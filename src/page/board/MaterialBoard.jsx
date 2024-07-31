@@ -8,7 +8,6 @@ import { useCookies } from "react-cookie";
 const MaterialBoard = () => {
   const navigate = useNavigate();
   const [data, setData] = useState();
-  const [cookie] = useCookies();
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/material`)
@@ -44,16 +43,14 @@ const MaterialBoard = () => {
               </tr>
             </thead>
             <tbody>
-              {Array(10)
-                .fill(1)
-                .map((item, index) => (
-                  <tr onClick={() => navigate(`${index}`)} key={index}>
-                    <th>{index + 1}</th>
-                    <td>{`${item.title} [${item.numCommnets}]`}</td>
-                    <td>{item.nickName}</td>
-                    <td>{formatDateTime(item.date)}</td>
-                  </tr>
-                ))}
+              {data?.map((item, index) => (
+                <tr onClick={() => navigate(`${index}`)} key={index}>
+                  <th>{index + 1}</th>
+                  <td>{`${item.title} [${item.numCommnets}]`}</td>
+                  <td>{item.nickName}</td>
+                  <td>{item.createdAt}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
