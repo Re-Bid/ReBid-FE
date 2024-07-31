@@ -11,10 +11,15 @@ export default function ListCard({ ...props }) {
   const [detail, setDetail] = useState(null);
   const [isLike, setIsLike] = useState(false);
 
+  const [cookie] = useCookies();
+
   const onHeartClick = async () => {
     await axios({
       method: "post",
       url: `${process.env.REACT_APP_BASE_URL}/bids/${detail.bidId}/heart?bidId=${detail.bidId}`,
+      headers: {
+        Authorization: `Bearer ${cookie.accessToken}`,
+      },
     })
       .then((r) => {
         setIsLike((prev) => !prev);
@@ -24,7 +29,7 @@ export default function ListCard({ ...props }) {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}/bids/${props.bidId}`,)
+      .get(`${process.env.REACT_APP_BASE_URL}/bids/${props.bidId}`)
       .then((res) => {
         setDetail(res.data.data);
       });

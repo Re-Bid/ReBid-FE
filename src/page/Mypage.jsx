@@ -5,6 +5,7 @@ import { Fragment, useEffect, useState } from "react";
 import DetailModal from "../components/detailcompos/DetailModal";
 import axios from "axios";
 import { BID_STATUS } from "../components/BidType";
+import { useCookies } from "react-cookie";
 
 const list2 = [
   {
@@ -47,12 +48,13 @@ export default function Mypage() {
   const [isModal, setIsModal] = useState("");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
+  const [cookie] = useCookies();
 
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/members/myPage`, {
         headers: {
-          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6NywiaWF0IjoxNzIyNDQ2NTgyLCJleHAiOjE3MjI0NjQ1ODJ9.7OXdUqGJ6AKcXfNQp2B2h0KCR_JhUA3HfL45wmf-PGk"}`,
+          Authorization: `Bearer ${cookie.accessToken}`,
         },
       })
       .then((res) => {

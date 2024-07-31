@@ -1,10 +1,12 @@
 import { Fragment, useState } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import Button from "../../components/Button";
 import axios from "axios";
+
+import naver from "../../asset/naver.png";
 
 export default function Login() {
   const { register, handleSubmit } = useForm();
@@ -32,8 +34,13 @@ export default function Login() {
             당신에게 <strong>유일</strong>함을 선사합니다.
           </div>
         </div>
+        <Link
+          to={`${process.env.REACT_APP_BASE_URL}/oauth2/authorization/naver`}
+        >
+          <img src={naver} alt="" className="h-10 bg-cover" />
+        </Link>
 
-        <form
+        {/* <form
           onSubmit={handleSubmit(onSubmit)}
           className="w-[500px] flex flex-col gap-3"
         >
@@ -80,7 +87,7 @@ export default function Login() {
           >
             아주 간단한 회원가입 하러 가기 &rarr;
           </span>
-        </div>
+        </div> */}
       </div>
     </Fragment>
   );
