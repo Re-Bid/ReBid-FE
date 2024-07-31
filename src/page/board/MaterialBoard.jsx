@@ -4,19 +4,17 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import axios from "axios";
 
-const data = {
-  title: "병뚜컹 팔아요",
-  nickName: "구윤찬",
-  date: "2024-09-29T13:00",
-  numCommnets: 3,
-};
-
 const MaterialBoard = () => {
   const navigate = useNavigate();
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/bids/4/AiRecommend`)
       .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}/material`)
+      .then((r) => console.log(r))
       .catch((err) => console.log(err));
   }, []);
   return (
@@ -46,7 +44,7 @@ const MaterialBoard = () => {
             </thead>
             <tbody>
               {Array(10)
-                .fill(data)
+                .fill(1)
                 .map((item, index) => (
                   <tr onClick={() => navigate(`${index}`)} key={index}>
                     <th>{index + 1}</th>
