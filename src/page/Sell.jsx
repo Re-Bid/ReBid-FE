@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import { authAxios } from "../components/UseAxiosInterceptors";
 
 export default function Sell() {
   const [images, setImages] = useState([]);
@@ -35,12 +36,13 @@ export default function Sell() {
       startDate: null,
       endDate: null,
     };
-    await axios
+    await authAxios
 
-      .post(`${process.env.REACT_APP_BASE_URL}/bids/sell`, sellData,)
+      .post(`${process.env.REACT_APP_BASE_URL}/bids/sell`, sellData)
       .then((res) => {
-        alert("등록 되었습니다.")
-        navigate("/")
+        console.log(res);
+        alert("등록 되었습니다.");
+        navigate("/");
       })
       .catch((e) => {
         console.log(e);
