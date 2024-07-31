@@ -39,17 +39,17 @@ const Table = ({ rows, list, isAdmin }) => {
                 />
               </th>
               <th>{item.itemName}</th>
-              {item.time ? <th>{item.time}</th> : null}
+              {item.time || item.bidTime ? <th>{item.time}</th> : null}
               {item.startPrice || item.bidPrice ? (
-                <th>{item.startPrice}</th>
+                <th>{item.startPrice || item.bidPrice}</th>
               ) : (
                 <th>-</th>
               )}
               <th
                 className={`${item.status === BID_STATUS.REJECT_CONFIRM ||
-                    item.completeStatus === BID_STATUS.REJECT_CONFIRM
-                    ? "text-warningColor"
-                    : "text-black"
+                  item.completeStatus === BID_STATUS.REJECT_CONFIRM
+                  ? "text-warningColor"
+                  : "text-black"
                   }`}
               >
                 {item.bidStatus || item.completeStatus}
