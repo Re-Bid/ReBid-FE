@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import ListCard from "../components/ListCard";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 export default function LikeLists() {
   const [data, setData] = useState();
+  const [cookie] = useCookies();
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/bids/heart`, {
