@@ -2,6 +2,7 @@ import { HeartIcon as Heart } from "@heroicons/react/24/outline";
 import { HeartIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 export default function HomePhoto({ image, name, bidId }) {
@@ -9,6 +10,8 @@ export default function HomePhoto({ image, name, bidId }) {
   const [isLike, setIsLike] = useState(false);
   const [price, setPrice] = useState(0);
   const navigate = useNavigate();
+
+  const [cookie] = useCookies();
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/bids/${bidId}`)
