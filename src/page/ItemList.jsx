@@ -18,6 +18,7 @@ export default function ItemList() {
   const [cookie] = useCookies();
 
   useEffect(() => {
+    setItemLists([]);
     axios
       .get(
         `${process.env.REACT_APP_BASE_URL}/bids/category?name=${CategoryEnum[category].value}`,
