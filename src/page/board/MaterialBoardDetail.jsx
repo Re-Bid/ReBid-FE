@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { formatDateTime } from "../../components/detailcompos/DetailContainer";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
@@ -32,15 +32,20 @@ const MaterialBoardDetail = () => {
   const [data, setData] = useState();
   const [cookie] = useCookies();
 
-  const onValid = (data) => {
+  useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/material/${id}`)
       .then((res) => {
+        console.log(res)
         setData(res.data.data);
       })
       .catch((err) => console.log(err));
-    console.log(data);
-  };
+  }, [])
+
+  const onValid = (data) => {
+
+  }
+
   return (
     <div className="py-4 px-10">
       <div className="border-b border-borderColor">
@@ -57,7 +62,7 @@ const MaterialBoardDetail = () => {
         </div>
       </div>
       <div className="py-10 border-b border-borderColor">
-        <p className="mx-10">{data?.material.commentNum}</p>
+        <p className="mx-10">{data?.material.description}</p>
       </div>
       <div className="py-4">
         <div className="mx-10">
