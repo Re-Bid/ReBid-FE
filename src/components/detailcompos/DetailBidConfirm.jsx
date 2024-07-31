@@ -13,13 +13,7 @@ const warningText = [
   "부정한 방법으로 경매에 참여할 경우, 해당 계정은 영구적으로 이용이 제한될 수 있습니다. 정직한 참여를 부탁드립니다.",
 ];
 
-const DetailBidConfirm = ({
-  startPrice,
-  remainingTime,
-  nowHighPrice,
-  bidId,
-}) => {
-  const { id } = useParams();
+const DetailBidConfirm = ({ startPrice, remainingTime, nowHighPrice, bidId }) => {
   const [bidMoney, setBidMoney] = useState(nowHighPrice);
   const [loading, setLoading] = useState(false);
   const [isTotalBid, setIsTotalBid] = useState(true);
@@ -85,7 +79,7 @@ const DetailBidConfirm = ({
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}/bids/${id}/histories`)
+      .get(`${process.env.REACT_APP_BASE_URL}/bids/${bidId}/histories`)
       .then((res) => {
         setTotalList(res.data.data.bidHistories);
       })
@@ -114,19 +108,19 @@ const DetailBidConfirm = ({
             <div className="h-40 overflow-y-scroll">
               {isTotalBid
                 ? totalList.map((item, index) => (
-                    <div
-                      key={index}
-                      className="py-2 border-b border-borderColor"
-                    >
-                      <p className="font-thin text-xs">
-                        {formatDateTime(item.createdAt)}
-                      </p>
-                      <div className="flex justify-between px-4">
-                        <p className="pl-4">{item.memberName}</p>
-                        <div>{item.price}</div>
-                      </div>
+                  <div
+                    key={index}
+                    className="py-2 border-b border-borderColor"
+                  >
+                    <p className="font-thin text-xs">
+                      {formatDateTime(item.createdAt)}
+                    </p>
+                    <div className="flex justify-between px-4">
+                      <p className="pl-4">{item.memberName}</p>
+                      <div>{item.price}</div>
                     </div>
-                  ))
+                  </div>
+                ))
                 : null}
             </div>
           </div>
@@ -137,9 +131,8 @@ const DetailBidConfirm = ({
             <div className="text-warningColor flex items-center">
               {nowHighPrice}원
               <ArrowPathIcon
-                className={`size-6 ml-2 cursor-pointer ${
-                  loading ? "animate-spin" : ""
-                }`}
+                className={`size-6 ml-2 cursor-pointer ${loading ? "animate-spin" : ""
+                  }`}
                 onClick={() => {
                   setLoading(true);
                   setTimeout(() => {

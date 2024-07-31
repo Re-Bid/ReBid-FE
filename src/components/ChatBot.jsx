@@ -60,7 +60,7 @@ const ChatBot = ({ bidId }) => {
               ))}
             </div>
           </div>
-          <Button onClick={onClick()} text={"다음 가격 예측하기"} />
+          <Button onClick={onClick} text={"다음 가격 예측하기"} />
         </div>
       </div>
     </div>
