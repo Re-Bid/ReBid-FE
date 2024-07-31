@@ -1,10 +1,22 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Logo from "./asset/logo.png"
+import { useRecoilValue } from "recoil";
+import { adminState } from "./atom";
+import { useEffect } from "react";
 
 
 const AdminLayout = () => {
     const { pathname } = useLocation()
     const navigate = useNavigate()
+    const admin = useRecoilValue(adminState)
+
+    useEffect(() => {
+        if (pathname.includes("/admin/") && !admin) {
+            alert("접근 권한 없습니다!")
+            navigate("/")
+        }
+
+    }, [admin])
 
     return (
         <div className=" min-h-screen min-w-[1024px]">
