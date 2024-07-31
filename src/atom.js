@@ -12,5 +12,5 @@ export const nowNav = atom({
 
 export const bidPriceState = atom({
   key: "bidPriceState",
-  default: 0
-})
+  default: 0,
+});

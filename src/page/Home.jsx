@@ -9,10 +9,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "../style/swiper.css";
 import "swiper/css/pagination";
+import { useCookies } from "react-cookie";
 
 export default function Home() {
   const [data, setData] = useState([]);
   const [endTod, setEndTod] = useState([]);
+  const [cookie, setcookie] = useCookies();
 
   useEffect(() => {
     axios
@@ -29,7 +31,9 @@ export default function Home() {
         setEndTod(res.data.data.bids);
       })
       .catch((e) => console.log(e));
-  }, []);
+
+    console.log(cookie);
+  }, [cookie]);
 
   return (
     <div className="flex flex-col items-center">

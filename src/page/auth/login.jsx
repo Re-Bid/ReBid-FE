@@ -11,11 +11,16 @@ import axios from "axios";
 
 export default function Login() {
   const { register, handleSubmit } = useForm();
+  const [cookie, setCookie] = useCookies();
   const navigate = useNavigate();
   const onSubmit = (data) => {
     axios
       .post(`${process.env.REACT_APP_BASE_URL}/members/login`, data)
-      .then((r) => navigate("/"))
+      .then((r) => {
+        setCookie("accessToken", r.data.data.accessToken);
+        setCookie("nickname", r.data.data.nickname);
+        navigate("/");
+      })
       .catch((e) => console.log(e));
   };
   return (
