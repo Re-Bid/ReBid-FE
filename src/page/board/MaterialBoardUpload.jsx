@@ -3,11 +3,15 @@ import React, { useState } from "react";
 import Button from "../../components/Button";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const MaterialBoardUpload = () => {
   const { register, handleSubmit } = useForm();
   const [images, setImages] = useState("");
   const [convertedUrl, setConvertedUrl] = useState(null);
+  const navigate = useNavigate();
+  const [cookie] = useCookies();
   const onFileUpload = (e) => {
     let reader = new FileReader();
     if (e.target.files[0]) {
