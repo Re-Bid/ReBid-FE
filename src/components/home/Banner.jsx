@@ -1,19 +1,37 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { formatDateTime } from "../detailcompos/DetailContainer";
+import bannerImg from "../../asset/homeImg.jpg";
+import himan from "../../asset/himan.png";
+import home2 from "../../asset/home2.jpg";
+import Button from "../../components/Button";
+import { useNavigate } from "react-router-dom";
 
-const Banner = ({ bid }) => {
-  const [banner, setBanner] = useState({});
-  useEffect(() => {
-    if (bid) {
-      axios
-        .get(`${process.env.REACT_APP_BASE_URL}/bids/${bid.bidId}`)
-        .then((e) => setBanner(e.data.data));
-    }
-  }, [bid]);
+const Banner = () => {
+  const navigate = useNavigate();
+
   return (
-    <div className="h-[350px] w-full grid grid-cols-2">
-      <div className="h-full text-white bg-[black] opacity-30 px-14 py-10 flex flex-col justify-around font-light">
+    <div
+      className="w-full h-[600px] flex justify-start items-center overflow-hidden bg-cover bg-start"
+      style={{
+        backgroundImage: `url(${home2})`,
+      }}
+    >
+      <div className="font-thin text-2xl text-white bg-gradient-to-r animate-fadeIn from-black/50 via-black/50 to-black/0 w-full flex items-start justify-center flex-col px-10 h-full">
+        <div className="w-full">
+          <span className="font-bold text-[40px]">Re:Bid</span>는 이 세상에{" "}
+          <strong>하나뿐인</strong> 제품으로 가득합니다.
+          <br />
+          <br />
+          경매에 참여하여 <br /> 자신의 일상을 유일함으로 채워보세요.
+        </div>
+        <div className="w-[100px] py-3" onClick={() => navigate("/signup")}>
+          <button className="btn">시작하기</button>
+        </div>
+      </div>
+
+      {/* // <div className="h-[450px] grid grid-cols-[1fr_1fr] w-full"> */}
+      {/* <div className="h-full text-white bg-[black] opacity-30 px-14 py-10 flex flex-col justify-around font-light">
         <div className="font-bold text-3xl">
           {banner.itemName ? banner.itemName : <div>no Data</div>}
         </div>
@@ -42,7 +60,15 @@ const Banner = ({ bid }) => {
             backgroundImage: `url(${banner?.imageUrls[0]})`,
           }}
         />
-      ) : null}
+      ) : null} */}
+
+      {/* // <div
+      //   className="bg-cover bg-center w-full h-full"
+      //   style={{
+      //     backgroundImage: `url(${himan})`,
+      //   }}
+      // ></div>
+    // </div> */}
     </div>
   );
 };

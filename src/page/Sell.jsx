@@ -1,20 +1,16 @@
 import { CameraIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 export default function Sell() {
   const [images, setImages] = useState([]);
   const [imageCnt, setImageCnt] = useState(0);
-  const [itemName, setItemName] = useState("");
-  const [price, setPrice] = useState(0);
-  const [shortDisc, setShortDisc] = useState("");
-  const [detail, setDetail] = useState("");
-  const [type, setType] = useState("realTime");
-  const [tag, setTag] = useState([]);
   const [convertUrl, setConvertedUrl] = useState([]);
 
-  const navigate = useNavigate()
+  const [cookie, setCookie] = useCookies(["user-info"]);
+  const navigate = useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -40,30 +36,36 @@ export default function Sell() {
       endDate: null,
     };
     await axios
+
       .post(`${process.env.REACT_APP_BASE_URL}/bids/sell`, sellData,)
       .then((res) => {
         alert("등록 되었습니다.")
         navigate("/")
-
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   const onFileUpload = (e) => {
-    if (images.length + e.target.files.length <= 5) {
-      for (let i = 0; i < e.target.files.length; i++) {
-        let reader = new FileReader();
-        if (e.target.files[i]) {
-          reader.readAsDataURL(e.target.files[i]);
+    try {
+      if (images.length + e.target.files.length <= 5) {
+        for (let i = 0; i < e.target.files.length; i++) {
+          let reader = new FileReader();
+          if (e.target.files[i]) {
+            reader.readAsDataURL(e.target.files[i]);
+          }
+          reader.onloadend = () => {
+            const resultImage = reader.result;
+            setImages((prev) => [...prev, resultImage]);
+          };
+          setImageCnt((prev) => prev + 1);
         }
-        reader.onloadend = () => {
-          const resultImage = reader.result;
-          setImages((prev) => [...prev, resultImage]);
-        };
-        setImageCnt((prev) => prev + 1);
+      } else {
+        alert("사진은 최대 5개까지 입력 가능합니다.");
       }
-    } else {
-      alert("사진은 최대 5개까지 입력 가능합니다.");
+    } catch (e) {
+      console.log("file upload error");
     }
   };
 
@@ -76,8 +78,8 @@ export default function Sell() {
         const imageUrl = URL.createObjectURL(data.target.files[i]);
         const response = await fetch(imageUrl);
         const blob = await response.blob();
-        const imageFile = new File([blob], "project_image.jpg", {
-          type: "image/jpeg",
+        const imageFile = new File([blob], "project_image.png", {
+          type: "image/*",
         });
         formData.append("image", imageFile);
 
@@ -91,7 +93,9 @@ export default function Sell() {
           transformRequest: (data, headers) => {
             return data;
           },
-        });
+        })
+          .then((res) => console.log(res))
+          .catch((e) => console.log(e, "url conver Err"));
         temp.push(res.data.data);
       }
     } catch (e) {
