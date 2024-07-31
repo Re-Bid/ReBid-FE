@@ -2,13 +2,17 @@ import { useForm } from "react-hook-form";
 import Logo from "../../asset/logo.png"
 import Button from "../../components/Button"
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { adminState } from "../../atom";
 
 export default function Auth() {
   const { register, handleSubmit } = useForm()
   const naviagtion = useNavigate()
+  const [admin, setAdmin] = useRecoilState(adminState)
 
   const onValid = (data) => {
     if (data.code = "1234") {
+      setAdmin(true)
       naviagtion("/admin/list")
     }
   }

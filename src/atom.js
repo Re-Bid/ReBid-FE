@@ -14,3 +14,9 @@ export const bidPriceState = atom({
   key: "bidPriceState",
   default: 0,
 });
+
+
+export const adminState = atom({
+  key: "adminState",
+  default: false
+})
