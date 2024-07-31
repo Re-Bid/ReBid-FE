@@ -34,7 +34,7 @@ const Table = ({ rows, list, isAdmin }) => {
             >
               <th className="">
                 <img
-                  src={`${process.env.REACT_APP_BASE_URL}/${item.imageUrl}`}
+                  src={`${item.imageUrl}`}
                   className="bg-bgColor w-24 h-24 rounded-lg"
                 />
               </th>
