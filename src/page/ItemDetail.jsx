@@ -78,8 +78,12 @@ export default function ItemDetail() {
           </div>
           <hr className="border-borderColor" />
           <div className="p-5">
-            <div className="font-bold">추천 제품</div>
-            {aiData.map((a, i) => <ListCard {...a} />)}
+            <div className="font-bold pb-4">추천 제품</div>
+            <div className="grid grid-cols-4 gap-4">
+              {aiData.map((a, i) => <ListCard {...a} />)}
+            </div>
+
+
           </div>
         </div>
       )}
