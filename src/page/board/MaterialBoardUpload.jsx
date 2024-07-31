@@ -24,28 +24,33 @@ const MaterialBoardUpload = () => {
   };
 
   const onSubmit = (e) => {
-    let data = {
-      imageUrl: convertedUrl,
-      title: e.title,
-      description: e.description,
-    };
-    try {
-      axios
-        .post(`${process.env.REACT_APP_BASE_URL}/material/add`, data, {
-          headers: {
-            Authorization: `Bearer ${cookie.accessToken}`,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          alert("등록 되었습니다.");
-          navigate("/");
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    } catch (e) {
-      console.log(e);
+    if (cookie) {
+      let data = {
+        imageUrl: convertedUrl,
+        title: e.title,
+        description: e.description,
+      };
+      try {
+        axios
+          .post(`${process.env.REACT_APP_BASE_URL}/material/add`, data, {
+            headers: {
+              Authorization: `Bearer ${cookie.accessToken}`,
+            },
+          })
+          .then((res) => {
+            console.log(res);
+            alert("등록 되었습니다.");
+            navigate("/");
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      alert("로그인이 필요합니다.");
+      navigate("/login");
     }
   };
 
