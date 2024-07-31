@@ -9,11 +9,15 @@ export default function Navigation() {
   const [navState, setNavState] = useRecoilState(nowNav);
   const { category } = useParams();
   const navigate = useNavigate();
-  const [cookie] = useCookies()
+  const [cookie] = useCookies();
 
   useEffect(() => {
-    if (!category) {
-      setNavState("/");
+    if (window.location.href.includes("all")) {
+      if (category === "wallet") {
+        setNavState("wallet");
+      } else {
+        setNavState("all");
+      }
     } else {
       setNavState(category);
     }
