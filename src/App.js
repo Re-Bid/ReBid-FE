@@ -30,11 +30,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <All />,
+        element: <Home />,
       },
       {
-        path: "/about",
-        element: <Home />,
+        path: "/all",
+        element: <All />,
       },
       {
         path: "/bid",

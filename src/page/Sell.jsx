@@ -82,8 +82,8 @@ export default function Sell() {
         const imageUrl = URL.createObjectURL(data.target.files[i]);
         const response = await fetch(imageUrl);
         const blob = await response.blob();
-        const imageFile = new File([blob], "project_image.png", {
-          type: "image/*",
+        const imageFile = new File([blob], "project_image.jpg", {
+          type: "image/jpeg",
         });
         formData.append("image", imageFile);
 
@@ -98,7 +98,9 @@ export default function Sell() {
             return data;
           },
         })
-          .then((res) => console.log(res))
+          .then((res) => {
+            return res;
+          })
           .catch((e) => console.log(e, "url conver Err"));
         temp.push(res.data.data);
       }
