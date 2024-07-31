@@ -10,6 +10,7 @@ import "swiper/css/navigation";
 import "../style/swiper.css";
 import "swiper/css/pagination";
 import { useCookies } from "react-cookie";
+import { authAxios, noAuthAxios } from "../components/UseAxiosInterceptors"
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -17,7 +18,7 @@ export default function Home() {
   const [cookie, setcookie] = useCookies();
 
   useEffect(() => {
-    axios
+    noAuthAxios
       .get(`${process.env.REACT_APP_BASE_URL}/bids`)
       .then((res) => {
         setData(res.data.data.bids);
@@ -25,14 +26,13 @@ export default function Home() {
       })
       .catch((e) => console.log(e));
 
-    axios
-      .get(`${process.env.REACT_APP_BASE_URL}/bids/imminent`)
-      .then((res) => {
-        setEndTod(res.data.data.bids);
-      })
-      .catch((e) => console.log(e));
+    // axios
+    //   .get(`${process.env.REACT_APP_BASE_URL}/bids/imminent`)
+    //   .then((res) => {
+    //     setEndTod(res.data.data.bids);
+    //   })
+    //   .catch((e) => console.log(e));
 
-    console.log(cookie);
   }, [cookie]);
 
   return (

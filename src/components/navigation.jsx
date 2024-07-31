@@ -3,11 +3,13 @@ import logo from "../asset/logo.png";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { nowNav } from "../atom";
+import { useCookies } from "react-cookie";
 
 export default function Navigation() {
   const [navState, setNavState] = useRecoilState(nowNav);
   const { category } = useParams();
   const navigate = useNavigate();
+  const [cookie] = useCookies()
 
   useEffect(() => {
     if (!category) {

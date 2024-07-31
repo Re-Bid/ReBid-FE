@@ -9,12 +9,12 @@ const MaterialBoard = () => {
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/bids/4/AiRecommend`)
-      .then((res) => console.log(res))
+      .then((res) => { })
       .catch((err) => console.log(err));
 
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/material`)
-      .then((r) => console.log(r))
+      .then((r) => { })
       .catch((err) => console.log(err));
   }, []);
   return (

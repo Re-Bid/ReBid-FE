@@ -14,12 +14,8 @@ export default function ItemDetail() {
 
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BASE_URL}/bids/${id}`, {
-      headers: {
-        'Authorization': `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MiwiaWF0IjoxNzIyMzY2MDA5LCJleHAiOjE3MjIzODQwMDl9.8DBuDgU1Jfzb7Oda4IFistbFjt_FVoa8WkOzwO0i9AE"}`
-      }
-    }).then(res => {
-      console.log(res)
+    axios.get(`${process.env.REACT_APP_BASE_URL}/bids/${id}`,).then(res => {
+
       setData(res.data.data)
       setImgUrl(res.data.data.imageUrls[0])
       setLoading(true)

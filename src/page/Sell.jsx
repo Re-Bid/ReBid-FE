@@ -40,14 +40,8 @@ export default function Sell() {
       endDate: null,
     };
     await axios
-      .post(`${process.env.REACT_APP_BASE_URL}/bids/sell`, sellData, {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwiaWF0IjoxNzIyMzU4NTAxLCJleHAiOjE3MjIzNzY1MDF9.2KMjJrFfdUpC2xVbfVB4utE6n6mqf8V3cb3aqr5KEnE",
-        },
-      })
+      .post(`${process.env.REACT_APP_BASE_URL}/bids/sell`, sellData,)
       .then((res) => {
-        console.log(res)
         alert("등록 되었습니다.")
         navigate("/")
 
@@ -132,7 +126,6 @@ export default function Sell() {
             <input
               onChange={async (e) => {
                 const res = await fileUrlConverter(e);
-                console.log(res);
                 if (res) {
                   setConvertedUrl((prev) => [...prev, ...res]);
                   if (e.target.files.length === res.length) {

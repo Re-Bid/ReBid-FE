@@ -26,11 +26,7 @@ const DetailAdminApprove = ({ bidId }) => {
         axios.put(`${process.env.REACT_APP_BASE_URL}/admin/bids/${bidId}/confirm/reservation`, {
             startDate: startDate,
             endDate: endDate
-        }, {
-            headers: {
-                'Authorization': `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwiaWF0IjoxNzIyMzU4NTAxLCJleHAiOjE3MjIzNzY1MDF9.2KMjJrFfdUpC2xVbfVB4utE6n6mqf8V3cb3aqr5KEnE"}`
-            }
-        }).then(res => {
+        },).then(res => {
             console.log(res)
             alert("승인 되었습니다")
             navigate("/admin/list")

@@ -5,11 +5,7 @@ import axios from "axios";
 export default function LikeLists() {
   const [data, setData] = useState()
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BASE_URL}/bids/heart`, {
-      headers: {
-        Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwiaWF0IjoxNzIyMzc0MTY3LCJleHAiOjE3MjIzOTIxNjd9.rT_apRgdCesR_5gBII_JmkqKoER9L7ELpAA5U0-JRN8"}`
-      }
-    }).then(res => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/bids/heart`,).then(res => {
       setData(res.data.data.bids)
     }).catch(err => console.log(err))
   }, [])

@@ -25,9 +25,7 @@ export default function HomePhoto({ image, name, bidId }) {
     await axios({
       method: "post",
       url: `${process.env.REACT_APP_BASE_URL}/bids/${bidId}/heart?bidId=${bidId}`,
-      headers: {
-        Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MiwiaWF0IjoxNzIyMzY2MDA5LCJleHAiOjE3MjIzODQwMDl9.8DBuDgU1Jfzb7Oda4IFistbFjt_FVoa8WkOzwO0i9AE"}`,
-      },
+
     })
       .then((r) => {
         setIsLike((prev) => !prev);

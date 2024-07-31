@@ -52,21 +52,13 @@ export default function AdminList() {
   const [confirmData, setConfirmData] = useState([])
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BASE_URL}/admin/bids?status=${"pending"}`, {
-      headers: {
-        'Authorization': `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwiaWF0IjoxNzIyMzU4NTAxLCJleHAiOjE3MjIzNzY1MDF9.2KMjJrFfdUpC2xVbfVB4utE6n6mqf8V3cb3aqr5KEnE"}`
-      }
-    }).then(res => {
-      console.log(res)
+    axios.get(`${process.env.REACT_APP_BASE_URL}/admin/bids?status=${"pending"}`,).then(res => {
+
       setPendingData(res.data.data.bids)
     }).catch(err => console.log(err))
 
-    axios.get(`${process.env.REACT_APP_BASE_URL}/admin/bids?status=${"confirm"}`, {
-      headers: {
-        'Authorization': `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwiaWF0IjoxNzIyMzc0MTY3LCJleHAiOjE3MjIzOTIxNjd9.rT_apRgdCesR_5gBII_JmkqKoER9L7ELpAA5U0-JRN8"}`
-      }
-    }).then(res => {
-      console.log(res)
+    axios.get(`${process.env.REACT_APP_BASE_URL}/admin/bids?status=${"confirm"}`).then(res => {
+
       setConfirmData(res.data.data.bids)
     }).catch(err => console.log(err))
   }, [])
