@@ -13,6 +13,7 @@ import { bidPriceState } from "../../atom";
 import TimeCountDown from "../TimeCountDown";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import NaverPayButton from "../NaverPayButton";
 
 export function formatDateTime(targetDateString) {
   // 입력된 날짜와 시간을 파싱
@@ -101,9 +102,8 @@ const DetailContainer = ({
             <div className="text-warningColor flex items-center space-x-2">
               <div>{nowHighPrice}</div>
               <ArrowPathIcon
-                className={`size-6 cursor-pointer ${
-                  loading ? "animate-spin" : ""
-                }`}
+                className={`size-6 cursor-pointer ${loading ? "animate-spin" : ""
+                  }`}
                 onClick={() => {
                   setLoading(true);
                   setTimeout(() => {
@@ -152,9 +152,7 @@ const DetailContainer = ({
               )}
             </div>
             {isSell ? (
-              <div className="w-full btn bg-green-400 hover:bg-green-400">
-                네이버로 결제하기
-              </div>
+              <NaverPayButton />
             ) : (
               <Fragment>
                 <div

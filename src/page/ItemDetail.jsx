@@ -28,7 +28,9 @@ export default function ItemDetail() {
       })
       .catch((err) => console.log(err));
 
-    axios.get(`${process.env.REACT_APP_BASE_URL}/bids/personalRecommend`).then(res => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/bids/personalRecommend`, {
+      headers: { Authorization: `Bearer ${cookie.accessToken}` }
+    }).then(res => {
       console.log(res)
       setAiData(res.data.data.bids)
     }).catch(err => console.log(err))
